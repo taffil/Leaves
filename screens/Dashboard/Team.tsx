@@ -3,7 +3,9 @@ import {
   RefreshControl,
   ScrollView,
   StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import React from "react";
 import MemberCard from "../../components/Cards/MemberCard";
@@ -16,15 +18,8 @@ const Team = () => {
       }
       contentContainerStyle={styles.container}
     >
-      <FlatList
-        numColumns={2}
-        contentContainerStyle={{
-          marginTop: 20,
-          gap: 15,
-        }}
-        keyExtractor={(item) => item.key}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        data={[
+      <View className="flex-row gap-y-4 flex-wrap justify-between">
+        {[
           {
             key: "1",
             name: "John Doe",
@@ -46,9 +41,8 @@ const Team = () => {
             requiredDays: "27",
             usedDays: "10",
           },
-        ]}
-        renderItem={({ item }) => (
-          <TouchableOpacity>
+        ].map((item) => (
+          <TouchableOpacity key={item.key}>
             <MemberCard
               name={item.name}
               role={item.role}
@@ -56,8 +50,8 @@ const Team = () => {
               usedDays={item.usedDays}
             />
           </TouchableOpacity>
-        )}
-      />
+        ))}
+      </View>
     </ScrollView>
   );
 };

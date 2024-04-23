@@ -24,7 +24,7 @@ const drawerItemStyle = {
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   return (
     <DrawerContentScrollView {...props}>
-      <View style={{ alignItems: "center", paddingVertical: 20 }}>
+      <View className="py-5 items-center">
         {!require("../assets/icon.png") ? (
           <Avatar.Image source={require("../assets/icon.png")} />
         ) : (

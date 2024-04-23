@@ -1,50 +1,87 @@
 import React, { useEffect, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Modal,
-  ScrollView,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Alert, Modal, View, useWindowDimensions } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import User from "./User";
 import Button from "../../components/Buttons/Button";
-import Text16 from "../../components/Text/Text16";
-import DropdownInput from "../../components/Inputs/Dropdown";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import Input from "../../components/Inputs/Input";
+import LeaveRequestModal from "./LeaveRequestModal";
+import { LeaveRequest } from "../../types";
 
 const LeaveRequests = ({ navigation }: { navigation: any }) => {
-  let admin = true;
-  const [leaveType, setLeaveType] = useState<string>("Annual Leave");
-  const [leaveRequestModal, setLeaveRequestModal] = useState<boolean>(false);
+  let admin: boolean = true;
 
-  const [data, setData] = useState<any[]>([
+  const [leaveRequestModal, setLeaveRequestModal] = useState<{
+    visible: boolean;
+    dataIndex: number | null;
+  }>({
+    visible: false,
+    dataIndex: null,
+  });
+
+  const [data, setData] = useState<LeaveRequest[]>([
     {
-      key: "1",
+      key: 1,
       name: "John Doe",
       leaveType: "Annual Leave",
+      decision: "Approved",
       period: "10.01.2024 - 20.01.2024",
       days: "10",
       requestedOn: "01.01.2024",
+      fromDate: new Date(),
+      toDate: new Date(),
+      description: "On Vacation",
     },
     {
-      key: "2",
+      key: 2,
       name: "John Doe",
       leaveType: "Sick Leave",
+      decision: "Approved",
       period: "10.01.2024 - 20.01.2024",
       days: "10",
       requestedOn: "01.01.2024",
+      fromDate: new Date(),
+      toDate: new Date(),
+      description: "Sick",
     },
     {
-      key: "3",
+      key: 3,
       name: "John Doe",
       leaveType: "Annual Leave",
+      decision: "Approved",
       period: "10.01.2024 - 20.01.2024",
       days: "10",
       requestedOn: "01.01.2024",
+      fromDate: new Date(),
+      toDate: new Date(),
+      description: "On Vacation",
     },
   ]);
+
+  const onEdit = (index: number) => {
+    setLeaveRequestModal({
+      visible: true,
+      dataIndex: index,
+    });
+  };
+
+  const onRemove = (index: number) => {
+    Alert.alert(
+      "Remove Leave Request?",
+      "Are you sure you want to remove this leave request?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () =>
+            setData((prev) => {
+              return prev.filter((_, itemIndex) => itemIndex !== index);
+            }),
+        },
+      ]
+    );
+  };
 
   const layout = useWindowDimensions();
 
@@ -55,7 +92,8 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
           <User
             admin={admin}
             data={data}
-            onEditCallback={() => setLeaveRequestModal(true)}
+            onEditCallback={onEdit}
+            onRemoveCallback={onRemove}
           />
         );
       case "second":
@@ -63,7 +101,8 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
           <User
             admin={admin}
             data={data}
-            onEditCallback={() => setLeaveRequestModal(true)}
+            onEditCallback={onEdit}
+            onRemoveCallback={onRemove}
           />
         );
       default:
@@ -100,7 +139,12 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
             <Button
               text="Add new"
               type="transparent"
-              onPress={() => setLeaveRequestModal(true)}
+              onPress={() =>
+                setLeaveRequestModal({
+                  visible: true,
+                  dataIndex: null,
+                })
+              }
             />
           </View>
         );
@@ -122,84 +166,19 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         <User
           admin={admin}
           data={data}
-          onEditCallback={() => setLeaveRequestModal(true)}
+          onEditCallback={onEdit}
+          onRemoveCallback={onRemove}
         />
       )}
-      <Modal visible={leaveRequestModal} animationType="slide">
-        <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-          <ScrollView contentContainerStyle={{ flex: 1 }}>
-            <View className="flex-1 justify-between pb-10">
-              <View>
-                <View className="flex-row items-center justify-between bg-gray-50 px-5 py-2.5 pt-14">
-                  <Text16 className="text-black font-productSansBold">
-                    New Leave Request
-                  </Text16>
-                  <Button
-                    text="Close"
-                    type="third"
-                    onPress={() => setLeaveRequestModal(false)}
-                  />
-                </View>
-                <View className="p-5 flex-col gap-y-4">
-                  <View className="flex-row justify-between items-center">
-                    <Text16 className="w-1/4">Leave Type:</Text16>
-                    <DropdownInput
-                      data={[
-                        { label: "Annual Leave", value: "Annual Leave" },
-                        { label: "Sick Leave", value: "Sick Leave" },
-                        { label: "Maternity Leave", value: "Maternity Leave" },
-                        { label: "Paternity Leave", value: "Paternity Leave" },
-                        { label: "Unpaid Leave", value: "Unpaid Leave" },
-                      ]}
-                      placeholder="Select Leave Type"
-                      value={leaveType}
-                      onChange={(item) => {
-                        setLeaveType(item.value);
-                      }}
-                    />
-                  </View>
-                  <View className="flex-row items-center">
-                    <Text16 className="w-1/4">From Date:</Text16>
-                    <DateTimePicker
-                      value={new Date()}
-                      mode="date"
-                      display="default"
-                      onChange={(date) => {
-                        console.log(date);
-                      }}
-                    />
-                  </View>
-                  <View className="flex-row items-center">
-                    <Text16 className="w-1/4">To Date:</Text16>
-                    <DateTimePicker
-                      value={new Date()}
-                      mode="date"
-                      display="default"
-                      onChange={(date) => {
-                        console.log(date);
-                      }}
-                    />
-                  </View>
-                  <View className="flex-row items-center justify-between">
-                    <Text16 className="w-1/4">Days:</Text16>
-                    <View className="w-3/4 pl-2">
-                      <Input keyboardType="numeric" />
-                    </View>
-                  </View>
-                  <View className="flex-row items-center justify-between">
-                    <Text16 className="w-1/4">Description:</Text16>
-                    <View className="w-3/4 pl-2">
-                      <Input />
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View className="px-5">
-                <Button type="primary" text="Add" className="px-6 py-3" />
-              </View>
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
+      <Modal visible={leaveRequestModal.visible} animationType="slide">
+        <LeaveRequestModal
+          admin={admin}
+          index={index}
+          setLeaveRequestModal={setLeaveRequestModal}
+          leaveRequestModal={leaveRequestModal}
+          data={data}
+          setData={setData}
+        />
       </Modal>
     </>
   );

@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  RefreshControl,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import { View, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import LeaveRequestCard from "../../components/Cards/LeaveRequestCard";
 import Input from "../../components/Inputs/Input";
 import DropdownInput from "../../components/Inputs/Dropdown";
@@ -14,13 +8,14 @@ const User = ({
   admin,
   data,
   onEditCallback,
+  onRemoveCallback,
 }: {
   admin: boolean;
   data: any[];
-  onEditCallback: (index: number) => void;
-  onRemoveCallback?: (index: number) => void;
+  onEditCallback: (value: number) => void;
+  onRemoveCallback: (value: number) => void;
 }) => {
-  const [leaveType, setLeaveType] = useState<string>("Annual Leave");
+  const [leaveType, setLeaveType] = useState<string>("All");
   const [date, setDate] = useState<string>("2024");
 
   return (
@@ -29,6 +24,7 @@ const User = ({
         <RefreshControl refreshing={false} tintColor={"#0F172A"} />
       }
       contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
     >
       <View className="mt-3">
         <Input placeholder="Search" />
@@ -37,6 +33,7 @@ const User = ({
         <DropdownInput
           style={[styles.dropdown, { flexGrow: 3 }]}
           data={[
+            { label: "All", value: "All" },
             { label: "Annual Leave", value: "Annual Leave" },
             { label: "Sick Leave", value: "Sick Leave" },
             { label: "Maternity Leave", value: "Maternity Leave" },
@@ -59,23 +56,16 @@ const User = ({
           }}
         />
       </View>
-      <FlatList
-        numColumns={1}
-        contentContainerStyle={{
-          marginTop: 20,
-          gap: 15,
-        }}
-        keyExtractor={(item) => item.key}
-        data={data}
-        renderItem={({ item }) => (
+      {data.map((item, idx) => (
+        <View className="mt-4" key={item.key}>
           <LeaveRequestCard
-            {...item}
             admin={admin}
-            onApproveCallback={() => {}}
-            onEditCallback={onEditCallback}
+            {...item}
+            onEditCallback={() => onEditCallback(idx)}
+            onRemoveCallback={() => onRemoveCallback(idx)}
           />
-        )}
-      />
+        </View>
+      ))}
     </ScrollView>
   );
 };

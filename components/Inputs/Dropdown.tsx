@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet } from "react-native";
 import React from "react";
+import { FieldError } from "react-hook-form";
+import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 
 interface ExtendedDropdownProps {
@@ -7,7 +8,9 @@ interface ExtendedDropdownProps {
   data: any[];
   placeholder?: string;
   value?: string;
+  error?: boolean | undefined | FieldError;
   onChange: (item: any) => void;
+  onBlur?: () => void;
 }
 
 const DropdownInput = ({
@@ -15,11 +18,18 @@ const DropdownInput = ({
   data,
   placeholder,
   value,
+  error,
   onChange,
+  onBlur,
 }: ExtendedDropdownProps) => {
   return (
     <Dropdown
-      style={[styles.dropdown, { flexGrow: 1 }, style]}
+      style={[
+        styles.dropdown,
+        { flexGrow: 1 },
+        style,
+        { borderColor: error ? "#ef4444" : "#e5e7eb" },
+      ]}
       containerStyle={styles.dropdownContainer}
       itemContainerStyle={styles.dropdownItemContainer}
       data={data}
@@ -28,6 +38,7 @@ const DropdownInput = ({
       valueField="value"
       value={value}
       onChange={onChange}
+      onBlur={onBlur}
     />
   );
 };
@@ -46,7 +57,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 1,
-    borderColor: "#e5e7eb",
     marginLeft: 12,
   },
   dropdownContainer: {

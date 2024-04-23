@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Home from "./Home";
 import Team from "./Team";

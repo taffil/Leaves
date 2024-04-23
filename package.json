@@ -20,6 +20,7 @@
     "nativewind": "^2.0.11",
     "npm": "^10.5.2",
     "react": "18.2.0",
+    "react-hook-form": "^7.51.3",
     "react-native": "0.73.6",
     "react-native-element-dropdown": "^2.10.4",
     "react-native-gesture-handler": "~2.14.0",

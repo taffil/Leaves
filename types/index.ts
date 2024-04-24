@@ -1,3 +1,12 @@
+import { ReactNode } from "react";
+import {
+  ModalProps,
+  ScrollViewProps,
+  TextProps,
+  ViewProps,
+} from "react-native";
+import { TouchableOpacityProps } from "react-native";
+
 interface LeaveRequest {
   key: number;
   name: string;
@@ -25,4 +34,29 @@ interface Authorization {
   reject: boolean;
 }
 
-export type { LeaveRequest, Authorization };
+interface ButtonProps extends TouchableOpacityProps {
+  type?: "primary" | "secondary" | "third" | "remove" | "transparent";
+  text?: string;
+  icon?: any;
+  mode?: "contained" | "outlined";
+  textProps?: TextProps;
+}
+
+interface AlertModalProps extends ModalProps {
+  children: ReactNode;
+  headerShow?: boolean;
+  title?: string;
+  visible: boolean;
+  animationType?: "none" | "slide" | "fade";
+  refershing?: boolean;
+  containerViewProps?: ScrollViewProps;
+  headerViewProps?: ViewProps;
+  titleProps?: TextProps;
+  buttonProps?: ButtonProps;
+  headerChildren?: ReactNode;
+  onCloseCallback?: () => void;
+  onYesCallback?: () => void;
+  onNoCallback?: () => void;
+}
+
+export type { LeaveRequest, Authorization, ButtonProps, AlertModalProps };

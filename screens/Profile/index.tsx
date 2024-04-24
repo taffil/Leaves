@@ -5,15 +5,38 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Icon } from "react-native-paper";
 import Input from "../../components/Inputs/Input";
 import Text14 from "../../components/Text/Text14";
 import Button from "../../components/Buttons/Button";
 import { Controller, useForm } from "react-hook-form";
 import TextError from "../../components/Text/TextError";
+import ScreenModal from "../../components/Modals/ScreenModal";
+import ChangePasswordModal from "./ChangePasswordModal";
+import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
+import AlertModal from "../../components/Modals/AlertModal";
+import Text16 from "../../components/Text/Text16";
 
 const Profile = () => {
+  const [changePasswordModal, setChangePasswordModal] =
+    useState<boolean>(false);
+  const [image, setImage] = useState<string | null>(null);
+  const [removeImageModal, setRemoveImageModal] = useState<boolean>(false);
+
+  const pickImage = async () => {
+    let result = await launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
+    }
+  };
+
   const {
     control,
     handleSubmit,
@@ -39,21 +62,28 @@ const Profile = () => {
       >
         <View className="p-5 flex-col justify-between bg-white rounded mt-5 flex-1">
           <View>
-            <View className="items-center mb-8 relaative">
-              {!require("../../assets/icon.png") ? (
-                <Avatar.Image
-                  source={require("../../assets/icon.png")}
-                  size={128}
-                />
+            <View className="items-center mb-5 relaative">
+              {image ? (
+                <Avatar.Image source={{ uri: image }} size={128} />
               ) : (
                 <Avatar.Text label="JD" size={128} />
               )}
-              <Button
-                type="secondary"
-                mode="contained"
-                className="absolute bottom-[-5px] right-24 rounded-full border-white border-2 p-2.5"
-                icon={<Icon source="camera" size={20} color="#fff" />}
-              />
+              <View className="flex-row">
+                <Button
+                  text="Edit profile picture"
+                  type="transparent"
+                  onPress={pickImage}
+                />
+                {image && (
+                  <Button
+                    text="Remove profile picture"
+                    type="remove"
+                    mode="outlined"
+                    className="border-0"
+                    onPress={() => setRemoveImageModal(true)}
+                  />
+                )}
+              </View>
             </View>
             <View className="flex-col gap-y-3">
               <View>
@@ -117,8 +147,12 @@ const Profile = () => {
                 {errors.email && <TextError>This is required.</TextError>}
               </View>
             </View>
-            <View className="mt-5 flex-row justify-end">
-              <Button text="Change Password" type="transparent" />
+            <View className="mt-2 flex-row justify-end">
+              <Button
+                text="Change Password"
+                type="transparent"
+                onPress={() => setChangePasswordModal(true)}
+              />
             </View>
           </View>
           <View className="mt-5">
@@ -132,6 +166,26 @@ const Profile = () => {
             </Button>
           </View>
         </View>
+        <ScreenModal
+          visible={changePasswordModal}
+          title="Change Password"
+          onCloseCallback={() => setChangePasswordModal(false)}
+        >
+          <ChangePasswordModal />
+        </ScreenModal>
+        <AlertModal
+          visible={removeImageModal}
+          onYesCallback={() => {
+            setImage(null);
+            setRemoveImageModal(false);
+          }}
+          onNoCallback={() => setRemoveImageModal(false)}
+          onCloseCallback={() => setRemoveImageModal(false)}
+        >
+          <Text16 className="font-productSansBold text-center">
+            Are you sure you want to remove profile picture?
+          </Text16>
+        </AlertModal>
       </ScrollView>
     </KeyboardAvoidingView>
   );

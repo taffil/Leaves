@@ -1,19 +1,14 @@
 import React from "react";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Text14 from "../Text/Text14";
-
-interface ButtonProps extends TouchableOpacityProps {
-  type: "primary" | "secondary" | "third" | "remove" | "transparent";
-  text?: string;
-  icon?: any;
-  mode?: "contained" | "outlined";
-}
+import { ButtonProps } from "../../types";
 
 const Button = ({
   text,
-  type,
+  type = "primary",
   icon,
   mode = "contained",
+  textProps,
   ...props
 }: ButtonProps) => {
   return (
@@ -32,8 +27,7 @@ const Button = ({
       type === "transparent" &&
       mode === "outlined" &&
       "border border-transparent"
-    }
-    `}
+    }`}
       {...props}
     >
       {icon ? icon : null}
@@ -47,6 +41,7 @@ const Button = ({
     ${type === "remove" && mode === "outlined" && "text-rose-500"}
     ${icon && "ml-1"}
     `}
+          {...textProps}
         >
           {text}
         </Text14>

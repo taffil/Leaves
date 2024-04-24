@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Modal, View, useWindowDimensions } from "react-native";
+import { Alert, View, useWindowDimensions } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import User from "./User";
 import Button from "../../components/Buttons/Button";
 import LeaveRequestModal from "./LeaveRequestModal";
 import { LeaveRequest } from "../../types";
+import ScreenModal from "../../components/Modals/ScreenModal";
 
 const LeaveRequests = ({ navigation }: { navigation: any }) => {
   let admin: boolean = true;
@@ -170,7 +171,20 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
           onRemoveCallback={onRemove}
         />
       )}
-      <Modal visible={leaveRequestModal.visible} animationType="slide">
+      <ScreenModal
+        visible={leaveRequestModal.visible}
+        title={
+          leaveRequestModal.dataIndex !== null
+            ? "Edit Leave Request"
+            : "New Leave Request"
+        }
+        onCloseCallback={() =>
+          setLeaveRequestModal({
+            visible: false,
+            dataIndex: null,
+          })
+        }
+      >
         <LeaveRequestModal
           admin={admin}
           index={index}
@@ -179,7 +193,7 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
           data={data}
           setData={setData}
         />
-      </Modal>
+      </ScreenModal>
     </>
   );
 };

@@ -45,7 +45,7 @@ const Login = () => {
               />
             )}
           />
-          {errors.email && <TextError>This is required.</TextError>}
+          {errors.email && <TextError>Email is required.</TextError>}
         </View>
         <View>
           <Text16 className="ml-1">Password:</Text16>
@@ -65,17 +65,18 @@ const Login = () => {
               />
             )}
           />
-          {errors.password && <TextError>This is required.</TextError>}
+          {errors.password && <TextError>Password is required.</TextError>}
         </View>
         <View>
           <Button
             type="primary"
-            text="Login"
             className="mb-1"
             onPress={handleSubmit(onSubmit)}
-          />
+          >
+            Login
+          </Button>
           <View className="flex-row justify-end">
-            <Button type="transparent" text="Forgot Password" />
+            <Button type="transparent">Forgot Password</Button>
           </View>
         </View>
       </ScrollView>
@@ -93,7 +94,7 @@ const AuthRoutes = () => {
         component={Login}
         options={{
           headerStyle: {
-            backgroundColor: "#f3f4f6",
+            backgroundColor: "#f8fafc",
           },
         }}
       />

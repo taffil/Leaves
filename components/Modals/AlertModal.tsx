@@ -45,10 +45,14 @@ const AlertModal = ({
           <View className="p-5">{children}</View>
           <View className="flex-1 flex-row">
             <View className="flex-1 border-r border-t border-gray-200">
-              <Button text="Yes" type="transparent" onPress={onYesCallback} />
+              <Button type="transparent" onPress={onYesCallback}>
+                Yes
+              </Button>
             </View>
             <View className="flex-1 border-t border-gray-200">
-              <Button text="No" type="transparent" onPress={onNoCallback} />
+              <Button type="transparent" onPress={onNoCallback}>
+                No
+              </Button>
             </View>
           </View>
         </View>

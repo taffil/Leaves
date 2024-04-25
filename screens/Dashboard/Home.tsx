@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, ScrollView, RefreshControl, StyleSheet } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
 import DaysCard from "../../components/Cards/DaysCard";
+import DropdownInput from "../../components/Inputs/Dropdown";
 
 const Home = () => {
   const [leaveType, setLeaveType] = useState<string>("Annual Leave");
@@ -15,13 +15,10 @@ const Home = () => {
       contentContainerStyle={styles.container}
     >
       <View className="flex-row gap-x-2 mt-3">
-        <Dropdown
+      <DropdownInput
           style={[styles.dropdown, { flexGrow: 3 }]}
-          containerStyle={styles.dropdownContainer}
-          itemContainerStyle={styles.dropdownItemContainer}
-          itemTextStyle={{ fontFamily: "ProductSans-regular" }}
-          selectedTextStyle={{ fontFamily: "ProductSans-regular" }}
           data={[
+            { label: "All", value: "All" },
             { label: "Annual Leave", value: "Annual Leave" },
             { label: "Sick Leave", value: "Sick Leave" },
             { label: "Maternity Leave", value: "Maternity Leave" },
@@ -29,23 +26,15 @@ const Home = () => {
             { label: "Unpaid Leave", value: "Unpaid Leave" },
           ]}
           placeholder="Select Leave Type"
-          labelField="label"
-          valueField="value"
           value={leaveType}
           onChange={(item) => {
             setLeaveType(item.value);
           }}
         />
-        <Dropdown
+        <DropdownInput
           style={[styles.dropdown, { flexGrow: 1 }]}
-          containerStyle={styles.dropdownContainer}
-          itemContainerStyle={styles.dropdownItemContainer}
-          itemTextStyle={{ fontFamily: "ProductSans-regular" }}
-          selectedTextStyle={{ fontFamily: "ProductSans-regular" }}
           data={[{ label: "2024", value: "2024" }]}
           placeholder="Select Date"
-          labelField="label"
-          valueField="value"
           value={date}
           onChange={(item) => {
             setDate(item.value);

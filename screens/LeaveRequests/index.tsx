@@ -138,7 +138,6 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         return (
           <View className="mr-3">
             <Button
-              text="Add new"
               type="transparent"
               onPress={() =>
                 setLeaveRequestModal({
@@ -146,7 +145,9 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
                   dataIndex: null,
                 })
               }
-            />
+            >
+              Add new
+            </Button>
           </View>
         );
       },

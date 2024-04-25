@@ -18,7 +18,7 @@ const DaysCard = ({
 }) => {
   return (
     <View
-      className={`bg-white rounded-lg items-center justify-center p-4 ${classNames}`}
+      className={`bg-white rounded-lg items-center justify-center p-4 border border-gray-200 ${classNames}`}
     >
       <Text20 className={`font-productSansBold my-2 ${titleClassNames}`}>
         {title}

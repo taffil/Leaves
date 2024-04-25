@@ -35,12 +35,9 @@ const ScreenModal = ({
             <Text16 className="text-black font-productSansBold" {...titleProps}>
               {title}
             </Text16>
-            <Button
-              text="Close"
-              type="third"
-              onPress={onCloseCallback}
-              {...buttonProps}
-            />
+            <Button type="third" onPress={onCloseCallback} {...buttonProps}>
+              Close
+            </Button>
             {headerChildren}
           </View>
         )}

@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useState } from "react";
-import { Avatar, Icon } from "react-native-paper";
+import { Avatar } from "react-native-paper";
 import Input from "../../components/Inputs/Input";
 import Text14 from "../../components/Text/Text14";
 import Button from "../../components/Buttons/Button";
@@ -23,6 +23,7 @@ const Profile = () => {
     useState<boolean>(false);
   const [image, setImage] = useState<string | null>(null);
   const [removeImageModal, setRemoveImageModal] = useState<boolean>(false);
+  const [removeAccountModal, setRemoveAccountModal] = useState<boolean>(false);
 
   const pickImage = async () => {
     let result = await launchImageLibraryAsync({
@@ -60,7 +61,7 @@ const Profile = () => {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        <View className="p-5 flex-col justify-between bg-white rounded mt-5 flex-1">
+        <View className="p-5 flex-col justify-between bg-white rounded mt-5 flex-1 border border-gray-200">
           <View>
             <View className="items-center mb-5 relaative">
               {image ? (
@@ -69,19 +70,18 @@ const Profile = () => {
                 <Avatar.Text label="JD" size={128} />
               )}
               <View className="flex-row">
-                <Button
-                  text="Edit profile picture"
-                  type="transparent"
-                  onPress={pickImage}
-                />
+                <Button type="transparent" onPress={pickImage}>
+                  Edit profile picture
+                </Button>
                 {image && (
                   <Button
-                    text="Remove profile picture"
                     type="remove"
                     mode="outlined"
                     className="border-0"
                     onPress={() => setRemoveImageModal(true)}
-                  />
+                  >
+                    Remove profile picture
+                  </Button>
                 )}
               </View>
             </View>
@@ -104,7 +104,9 @@ const Profile = () => {
                     />
                   )}
                 />
-                {errors.firstName && <TextError>This is required.</TextError>}
+                {errors.firstName && (
+                  <TextError>First Name is required</TextError>
+                )}
               </View>
               <View>
                 <Text14>Last Name</Text14>
@@ -124,7 +126,9 @@ const Profile = () => {
                     />
                   )}
                 />
-                {errors.lastName && <TextError>This is required.</TextError>}
+                {errors.lastName && (
+                  <TextError>Last Name is required.</TextError>
+                )}
               </View>
               <View>
                 <Text14>Email</Text14>
@@ -144,25 +148,30 @@ const Profile = () => {
                     />
                   )}
                 />
-                {errors.email && <TextError>This is required.</TextError>}
+                {errors.email && <TextError>Email is required.</TextError>}
               </View>
             </View>
-            <View className="mt-2 flex-row justify-end">
-              <Button
-                text="Change Password"
-                type="transparent"
-                onPress={() => setChangePasswordModal(true)}
-              />
-            </View>
           </View>
-          <View className="mt-5">
+          <View className="mt-5 flex-col gap-y-3">
             <Button
-              text="Save"
+              type="transparent"
+              onPress={() => setChangePasswordModal(true)}
+            >
+              Change Password
+            </Button>
+            <Button
               type="primary"
               mode="contained"
               onPress={handleSubmit(onSubmit)}
             >
               Save
+            </Button>
+            <Button
+              type="remove"
+              mode="outlined"
+              onPress={() => setRemoveAccountModal(true)}
+            >
+              Remove Account
             </Button>
           </View>
         </View>
@@ -184,6 +193,16 @@ const Profile = () => {
         >
           <Text16 className="font-productSansBold text-center">
             Are you sure you want to remove profile picture?
+          </Text16>
+        </AlertModal>
+        <AlertModal
+          visible={removeAccountModal}
+          onYesCallback={() => setRemoveAccountModal(false)}
+          onNoCallback={() => setRemoveAccountModal(false)}
+          onCloseCallback={() => setRemoveAccountModal(false)}
+        >
+          <Text16 className="font-productSansBold text-center">
+            Are you sure you want to remove your account?
           </Text16>
         </AlertModal>
       </ScrollView>

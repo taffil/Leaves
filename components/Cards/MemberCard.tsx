@@ -11,7 +11,7 @@ const MemberCard = (props: {
   usedDays: string;
 }) => {
   return (
-    <View className="bg-white rounded-lg items-center p-3">
+    <View className="bg-white rounded-lg items-center p-3 border border-gray-200">
       <View className="justify-center items-center border-b-2 border-b-gray-300 p-3">
         {!require("../../assets/icon.png") ? (
           <Avatar.Image size={84} source={require("../../assets/icon.png")} />

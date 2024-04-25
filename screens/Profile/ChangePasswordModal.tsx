@@ -40,7 +40,7 @@ const ChangePasswordModal = () => {
               />
             )}
           />
-          {errors.password && <TextError>This is required.</TextError>}
+          {errors.password && <TextError>Password is required.</TextError>}
         </View>
         <View>
           <Text14>Confirm New Password</Text14>
@@ -60,15 +60,14 @@ const ChangePasswordModal = () => {
               />
             )}
           />
-          {errors.confirmPassword && <TextError>This is required.</TextError>}
+          {errors.confirmPassword && (
+            <TextError>Confirm password is required.</TextError>
+          )}
         </View>
       </View>
-      <Button
-        text="Save"
-        type="primary"
-        mode="contained"
-        onPress={handleSubmit(onSubmit)}
-      />
+      <Button type="primary" mode="contained" onPress={handleSubmit(onSubmit)}>
+        Save
+      </Button>
     </View>
   );
 };

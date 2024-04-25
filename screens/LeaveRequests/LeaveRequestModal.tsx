@@ -180,7 +180,7 @@ const LeaveRequestModal = ({
                 />
               )}
             />
-            {errors.leaveType && <TextError>This is required.</TextError>}
+            {errors.leaveType && <TextError>Leave Type is required.</TextError>}
           </View>
           <View className="flex-row items-center">
             <Text16 className="w-1/4">From Date:</Text16>
@@ -201,7 +201,7 @@ const LeaveRequestModal = ({
                 />
               )}
             />
-            {errors.fromDate && <TextError>This is required.</TextError>}
+            {errors.fromDate && <TextError>From Date is required.</TextError>}
           </View>
           <View className="flex-row items-center">
             <Text16 className="w-1/4">To Date:</Text16>
@@ -222,7 +222,7 @@ const LeaveRequestModal = ({
                 />
               )}
             />
-            {errors.toDate && <TextError>This is required.</TextError>}
+            {errors.toDate && <TextError>To Date is required.</TextError>}
           </View>
           <View className="flex-row items-center justify-between">
             <Text16 className="w-1/4">Days:</Text16>
@@ -243,7 +243,7 @@ const LeaveRequestModal = ({
                   />
                 )}
               />
-              {errors.days && <TextError>This is required.</TextError>}
+              {errors.days && <TextError>Days is required.</TextError>}
             </View>
           </View>
           <View className="flex-row items-center justify-between">
@@ -264,7 +264,9 @@ const LeaveRequestModal = ({
                   />
                 )}
               />
-              {errors.description && <TextError>This is required.</TextError>}
+              {errors.description && (
+                <TextError>Description is required.</TextError>
+              )}
             </View>
           </View>
         </View>
@@ -273,17 +275,19 @@ const LeaveRequestModal = ({
         {leaveRequestModal.dataIndex !== null ? (
           <Button
             type="secondary"
-            text="Save"
             className="px-6 py-3"
             onPress={handleSubmit(onSubmit)}
-          />
+          >
+            Save
+          </Button>
         ) : (
           <Button
             type="primary"
-            text="Add"
             className="px-6 py-3"
             onPress={handleSubmit(onSubmit)}
-          />
+          >
+            Add
+          </Button>
         )}
       </View>
     </View>

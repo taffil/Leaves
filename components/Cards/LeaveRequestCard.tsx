@@ -27,7 +27,7 @@ const LeaveRequestCard = ({
   onRemoveCallback?: () => void;
 }) => {
   return (
-    <View className="flex-column rounded-lg bg-gray-50">
+    <View className="flex-column rounded-lg bg-gray-50 border border-gray-200">
       <View className="flex-row justify-between px-4 py-2.5 bg-gray-300 rounded-t-lg">
         <Text16 className="text-black">Employee:</Text16>
         <Text16 className="font-productSansMedium text-black">{name}</Text16>
@@ -60,25 +60,26 @@ const LeaveRequestCard = ({
               className="mr-2"
               onPress={onApproveCallback}
               mode="contained"
-              text="Approve"
-            />
+            >
+              Approve
+            </Button>
             <Button
               type="secondary"
               className="mr-2"
               onPress={onEditCallback}
               mode="contained"
-              text="Edit"
-            />
-            <Button
-              type="remove"
-              onPress={onRemoveCallback}
-              mode="contained"
-              text="Reject"
-            />
+            >
+              Edit
+            </Button>
+            <Button type="remove" onPress={onRemoveCallback} mode="contained">
+              Reject
+            </Button>
           </View>
         ) : (
           <View className="flex-row flex-wrap justify-end px-4 py-2.5 gap-y-2 rounded-b-lg">
-            <Button type="secondary" text="Edit" onPress={onEditCallback} />
+            <Button type="secondary" onPress={onEditCallback}>
+              Edit
+            </Button>
           </View>
         )
       ) : null}

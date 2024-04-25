@@ -46,6 +46,9 @@ const ProtectedRoutes = () => {
           backgroundColor: "#0f172a",
         },
         headerTintColor: "#0f172a",
+        headerStyle: {
+          backgroundColor: "#f8fafc",
+        },
         headerTitleStyle: {
           fontFamily: "ProductSans-bold",
         },

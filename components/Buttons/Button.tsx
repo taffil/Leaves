@@ -8,6 +8,7 @@ const Button = ({
   type = "primary",
   icon,
   mode = "contained",
+  children,
   textProps,
   ...props
 }: ButtonProps) => {
@@ -31,7 +32,7 @@ const Button = ({
       {...props}
     >
       {icon ? icon : null}
-      {text && (
+      {children && (
         <Text14
           className={`font-productSansMedium text-black  ${
             type === "primary" && mode === "outlined" && "text-green-400"
@@ -43,7 +44,7 @@ const Button = ({
     `}
           {...textProps}
         >
-          {text}
+          {children}
         </Text14>
       )}
     </TouchableOpacity>

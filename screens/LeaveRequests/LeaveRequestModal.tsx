@@ -114,73 +114,79 @@ const LeaveRequestModal = ({
               />
             </View>
           )}
-          <View className="flex-row justify-between items-center">
-            <Text16 className="w-1/4">
-              {admin && index === 1 && leaveRequestModal.dataIndex !== null
-                ? "Decision:"
-                : "Leave Type:"}
-            </Text16>
-            <Controller
-              control={control}
-              rules={{
-                required:
+          <View className="flex-col">
+            <View className="flex-row justify-between items-center">
+              <Text16 className="w-1/4">
+                {admin && index === 1 && leaveRequestModal.dataIndex !== null
+                  ? "Decision:"
+                  : "Leave Type:"}
+              </Text16>
+              <Controller
+                control={control}
+                rules={{
+                  required:
+                    admin && index === 1 && leaveRequestModal.dataIndex !== null
+                      ? false
+                      : true,
+                }}
+                name={
                   admin && index === 1 && leaveRequestModal.dataIndex !== null
-                    ? false
-                    : true,
-              }}
-              name={
-                admin && index === 1 && leaveRequestModal.dataIndex !== null
-                  ? "decision"
-                  : "leaveType"
-              }
-              render={({ field: { onBlur, value } }) => (
-                <DropdownInput
-                  data={
-                    admin && index === 1 && leaveRequestModal.dataIndex !== null
-                      ? [
-                          { label: "Approved", value: "Approved" },
-                          {
-                            label: "Partially Approved",
-                            value: "Partially Approved",
-                          },
-                          { label: "Rejected", value: "Rejected" },
-                        ]
-                      : [
-                          { label: "Annual Leave", value: "Annual Leave" },
-                          { label: "Sick Leave", value: "Sick Leave" },
-                          {
-                            label: "Maternity Leave",
-                            value: "Maternity Leave",
-                          },
-                          {
-                            label: "Paternity Leave",
-                            value: "Paternity Leave",
-                          },
-                          { label: "Unpaid Leave", value: "Unpaid Leave" },
-                        ]
-                  }
-                  value={value}
-                  placeholder={
-                    admin && index === 1 && leaveRequestModal.dataIndex !== null
-                      ? "Select Decision"
-                      : "Select Leave Type"
-                  }
-                  onChange={(item) => {
-                    setValue(
+                    ? "decision"
+                    : "leaveType"
+                }
+                render={({ field: { onBlur, value } }) => (
+                  <DropdownInput
+                    data={
                       admin &&
-                        index === 1 &&
-                        leaveRequestModal.dataIndex !== null
-                        ? "decision"
-                        : "leaveType",
-                      item.value
-                    );
-                  }}
-                  onBlur={onBlur}
-                  error={errors.leaveType}
-                />
-              )}
-            />
-            {errors.leaveType && <TextError>Leave Type is required.</TextError>}
+                      index === 1 &&
+                      leaveRequestModal.dataIndex !== null
+                        ? [
+                            { label: "Approved", value: "Approved" },
+                            {
+                              label: "Partially Approved",
+                              value: "Partially Approved",
+                            },
+                            { label: "Rejected", value: "Rejected" },
+                          ]
+                        : [
+                            { label: "Annual Leave", value: "Annual Leave" },
+                            { label: "Sick Leave", value: "Sick Leave" },
+                            {
+                              label: "Maternity Leave",
+                              value: "Maternity Leave",
+                            },
+                            {
+                              label: "Paternity Leave",
+                              value: "Paternity Leave",
+                            },
+                            { label: "Unpaid Leave", value: "Unpaid Leave" },
+                          ]
+                    }
+                    value={value}
+                    placeholder={
+                      admin &&
+                      index === 1 &&
+                      leaveRequestModal.dataIndex !== null
+                        ? "Select Decision"
+                        : "Select Leave Type"
+                    }
+                    onChange={(item) => {
+                      setValue(
+                        admin &&
+                          index === 1 &&
+                          leaveRequestModal.dataIndex !== null
+                          ? "decision"
+                          : "leaveType",
+                        item.value
+                      );
+                    }}
+                    onBlur={onBlur}
+                    error={errors.leaveType}
+                  />
+                )}
+              />
+            </View>
+            {errors.leaveType && <TextError className="w-3/4 self-end">Leave Type is required.</TextError>}
           </View>
           <View className="flex-row items-center">
             <Text16 className="w-1/4">From Date:</Text16>

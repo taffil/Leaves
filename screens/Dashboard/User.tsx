@@ -1,24 +1,28 @@
 import React, { useState } from "react";
 import { View, ScrollView, RefreshControl, StyleSheet } from "react-native";
-import { Dropdown } from "react-native-element-dropdown";
 import DaysCard from "../../components/Cards/DaysCard";
+import DropdownInput from "../../components/Inputs/Dropdown";
+import { useColorScheme } from "nativewind";
 
 const User = () => {
+  const { colorScheme } = useColorScheme();
+
   const [leaveType, setLeaveType] = useState<string>("Annual Leave");
   const [date, setDate] = useState<string>("2024");
 
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={false} tintColor={"#0F172A"} />
+        <RefreshControl
+          refreshing={false}
+          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+        />
       }
       contentContainerStyle={styles.container}
     >
       <View className="flex-row gap-x-2 mt-3">
-        <Dropdown
-          style={[styles.dropdown, { flexGrow: 3 }]}
-          containerStyle={styles.dropdownContainer}
-          itemContainerStyle={styles.dropdownItemContainer}
+        <DropdownInput
+          style={[{ flexGrow: 3 }]}
           data={[
             { label: "Annual Leave", value: "Annual Leave" },
             { label: "Sick Leave", value: "Sick Leave" },
@@ -27,21 +31,15 @@ const User = () => {
             { label: "Unpaid Leave", value: "Unpaid Leave" },
           ]}
           placeholder="Select Leave Type"
-          labelField="label"
-          valueField="value"
           value={leaveType}
           onChange={(item) => {
             setLeaveType(item.value);
           }}
         />
-        <Dropdown
-          style={[styles.dropdown, { flexGrow: 1 }]}
-          containerStyle={styles.dropdownContainer}
-          itemContainerStyle={styles.dropdownItemContainer}
+        <DropdownInput
+          style={[{ flexGrow: 1 }]}
           data={[{ label: "2024", value: "2024" }]}
           placeholder="Select Date"
-          labelField="label"
-          valueField="value"
           value={date}
           onChange={(item) => {
             setDate(item.value);

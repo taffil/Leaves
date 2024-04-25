@@ -4,8 +4,11 @@ import LeaveRequestCard from "../../components/Cards/LeaveRequestCard";
 import Input from "../../components/Inputs/Input";
 import DropdownInput from "../../components/Inputs/Dropdown";
 import { LeaveRequest } from "../../types";
+import { useColorScheme } from "nativewind";
 
 const LeaveApprovals = () => {
+  const { colorScheme } = useColorScheme();
+
   const [leaveType, setLeaveType] = useState<string>("All");
   const [date, setDate] = useState<string>("2024");
   const [data] = useState<LeaveRequest[]>([
@@ -50,17 +53,21 @@ const LeaveApprovals = () => {
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={false} tintColor={"#0F172A"} />
+        <RefreshControl
+          refreshing={false}
+          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+        />
       }
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
+      className="dark:bg-zinc-800"
     >
       <View className="mt-3">
         <Input placeholder="Search" />
       </View>
       <View className="flex-row items-center gap-x-2 mt-3">
         <DropdownInput
-          style={[styles.dropdown, { flexGrow: 3 }]}
+          style={[{ flexGrow: 3 }]}
           data={[
             { label: "All", value: "All" },
             { label: "Annual Leave", value: "Annual Leave" },
@@ -76,7 +83,7 @@ const LeaveApprovals = () => {
           }}
         />
         <DropdownInput
-          style={[styles.dropdown, { flexGrow: 1 }]}
+          style={[{ flexGrow: 1 }]}
           data={[{ label: "2024", value: "2024" }]}
           placeholder="Select Date"
           value={date}

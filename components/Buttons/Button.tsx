@@ -24,6 +24,9 @@ const Button = ({
     ${type === "secondary" && mode === "outlined" && "border border-amber-400"}
     ${type === "third" && mode === "outlined" && "border border-gray-200"}
     ${type === "remove" && mode === "outlined" && "border border-rose-500"}
+    dark:bg-zinc-600 ${type === "transparent" && "bg-transparent"} ${
+        mode === "outlined" && "bg-transparent"
+      }
     ${
       type === "transparent" &&
       mode === "outlined" &&
@@ -34,12 +37,26 @@ const Button = ({
       {icon ? icon : null}
       {children && (
         <Text14
-          className={`font-productSansMedium text-black  ${
-            type === "primary" && mode === "outlined" && "text-green-400"
+          className={`font-productSansMedium text-black dark:text-gray-50  ${
+            type === "primary" &&
+            mode === "outlined" &&
+            "text-green-400 dark:text-green-400"
           }
-    ${type === "secondary" && mode === "outlined" && "text-amber-400"}
-    ${type === "third" && mode === "outlined" && "text-gray-200"}
-    ${type === "remove" && mode === "outlined" && "text-rose-500"}
+    ${
+      type === "secondary" &&
+      mode === "outlined" &&
+      "text-amber-400 dark:text-amber-400"
+    }
+    ${
+      type === "third" &&
+      mode === "outlined" &&
+      "text-gray-200 dark:text-gray-200"
+    }
+    ${
+      type === "remove" &&
+      mode === "outlined" &&
+      "text-rose-500 dark:text-rose-500"
+    }
     ${icon && "ml-1"}
     `}
           {...textProps}

@@ -6,6 +6,7 @@ import Input from "../components/Inputs/Input";
 import Button from "../components/Buttons/Button";
 import { Controller, useForm } from "react-hook-form";
 import TextError from "../components/Text/TextError";
+import { useColorScheme } from "nativewind";
 
 const Login = () => {
   const {
@@ -22,9 +23,9 @@ const Login = () => {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <KeyboardAvoidingView className="flex-1 p-5" behavior="padding">
+    <KeyboardAvoidingView className="flex-1" behavior="padding">
       <ScrollView
-        className="bg-white gap-5"
+        className="bg-white dark:bg-zinc-800 p-5 flex-col gap-y-5"
         keyboardShouldPersistTaps="handled"
       >
         <View>
@@ -87,14 +88,17 @@ const Login = () => {
 const Stack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
+  const { colorScheme } = useColorScheme();
+
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Login"
         component={Login}
         options={{
+          headerTintColor: colorScheme === "dark" ? "#f9fafb" : "#0f172a",
           headerStyle: {
-            backgroundColor: "#f8fafc",
+            backgroundColor: colorScheme === "dark" ? "#18181b" : "#f8fafc",
           },
         }}
       />

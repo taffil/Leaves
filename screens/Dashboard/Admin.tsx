@@ -3,6 +3,7 @@ import { useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import Home from "./Home";
 import Team from "./Team";
+import { useColorScheme } from "nativewind";
 
 const renderScene = SceneMap({
   first: Home,
@@ -11,6 +12,7 @@ const renderScene = SceneMap({
 
 const Admin = () => {
   const layout = useWindowDimensions();
+  const { colorScheme } = useColorScheme();
 
   const renderTabBar = (props: any) => (
     <TabBar
@@ -20,10 +22,10 @@ const Admin = () => {
         borderRadius: 10,
         padding: 1.5,
       }}
-      labelStyle={{ color: "red", fontFamily: "ProductSans-bold" }}
-      activeColor="#0f172a"
+      labelStyle={{ fontFamily: "ProductSans-bold" }}
+      activeColor={colorScheme === "dark" ? "#f9fafb" : "#0f172a"}
       inactiveColor="#9ca3af"
-      className="bg-transparent"
+      className="bg-transparent dark:bg-zinc-800"
     />
   );
 

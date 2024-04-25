@@ -1,24 +1,34 @@
 import {
-  FlatList,
   RefreshControl,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import React from "react";
 import MemberCard from "../../components/Cards/MemberCard";
+import { useColorScheme } from "nativewind";
 
 const Team = () => {
+  const { colorScheme } = useColorScheme();
+
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={false} tintColor={"#0F172A"} />
+        <RefreshControl
+          refreshing={false}
+          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+        />
       }
       contentContainerStyle={styles.container}
+      className="dark:bg-zinc-800"
     >
-      <View className="flex-row gap-y-4 flex-wrap justify-between">
+      <View
+        className="flex-row gap-y-4 flex-wrap justify-between"
+        style={{
+          marginTop: 0,
+        }}
+      >
         {[
           {
             key: "1",

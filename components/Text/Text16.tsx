@@ -4,7 +4,7 @@ import React from "react";
 const Text16 = (props: TextProps) => {
   return (
     <Text
-      className={`text-base font-productSansRegular text-gray-700`}
+      className={`text-base font-productSansRegular text-gray-700 dark:text-gray-50`}
       {...props}
     >
       {props?.children}

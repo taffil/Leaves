@@ -9,6 +9,7 @@ import {
 import Text16 from "../Text/Text16";
 import Button from "../Buttons/Button";
 import { AlertModalProps } from "../../types";
+import { useColorScheme } from "nativewind";
 
 const ScreenModal = ({
   children,
@@ -24,15 +25,17 @@ const ScreenModal = ({
   headerChildren,
   onCloseCallback,
 }: AlertModalProps) => {
+  const { colorScheme } = useColorScheme();
+
   return (
     <Modal visible={visible} animationType={animationType}>
       <KeyboardAvoidingView behavior="padding" className="flex-1">
         {headerShow && (
           <View
-            className="flex-row items-center justify-between bg-gray-50 px-5 py-2.5 pt-14"
+            className="flex-row items-center justify-between bg-gray-50 dark:bg-zinc-900 px-5 py-2.5 pt-14"
             {...headerViewProps}
           >
-            <Text16 className="text-black font-productSansBold" {...titleProps}>
+            <Text16 className="text-black dark:text-gray-50 font-productSansBold" {...titleProps}>
               {title}
             </Text16>
             <Button type="third" onPress={onCloseCallback} {...buttonProps}>
@@ -44,7 +47,13 @@ const ScreenModal = ({
         <ScrollView
           contentContainerStyle={{ flex: 1 }}
           keyboardShouldPersistTaps="handled"
-          refreshControl={<RefreshControl refreshing={refershing} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={refershing}
+              tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+            />
+          }
+          className="dark:bg-zinc-800"
           {...containerViewProps}
         >
           <View className="flex-1">{children}</View>

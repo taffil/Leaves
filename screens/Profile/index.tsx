@@ -17,8 +17,11 @@ import ChangePasswordModal from "./ChangePasswordModal";
 import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
 import AlertModal from "../../components/Modals/AlertModal";
 import Text16 from "../../components/Text/Text16";
+import { useColorScheme } from "nativewind";
 
 const Profile = () => {
+  const { colorScheme } = useColorScheme();
+
   const [changePasswordModal, setChangePasswordModal] =
     useState<boolean>(false);
   const [image, setImage] = useState<string | null>(null);
@@ -56,12 +59,16 @@ const Profile = () => {
     <KeyboardAvoidingView className="flex-1" behavior="padding">
       <ScrollView
         refreshControl={
-          <RefreshControl refreshing={false} tintColor={"#0F172A"} />
+          <RefreshControl
+            refreshing={false}
+            tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+          />
         }
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
+        className="dark:bg-zinc-800"
       >
-        <View className="p-5 flex-col justify-between bg-white rounded mt-5 flex-1 border border-gray-200">
+        <View className="p-5 flex-col justify-between bg-white dark:bg-zinc-800 rounded mt-5 flex-1 border border-gray-200 dark:border-zinc-600">
           <View>
             <View className="items-center mb-5 relaative">
               {image ? (

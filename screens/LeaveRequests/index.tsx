@@ -6,9 +6,12 @@ import Button from "../../components/Buttons/Button";
 import LeaveRequestModal from "./LeaveRequestModal";
 import { LeaveRequest } from "../../types";
 import ScreenModal from "../../components/Modals/ScreenModal";
+import { useColorScheme } from "nativewind";
 
 const LeaveRequests = ({ navigation }: { navigation: any }) => {
   let admin: boolean = true;
+  const layout = useWindowDimensions();
+  const { colorScheme } = useColorScheme();
 
   const [leaveRequestModal, setLeaveRequestModal] = useState<{
     visible: boolean;
@@ -17,7 +20,6 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
     visible: false,
     dataIndex: null,
   });
-
   const [data, setData] = useState<LeaveRequest[]>([
     {
       key: 1,
@@ -84,8 +86,6 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
     );
   };
 
-  const layout = useWindowDimensions();
-
   const renderScene = ({ route }: { route: any }) => {
     switch (route.key) {
       case "first":
@@ -119,10 +119,10 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         borderRadius: 10,
         padding: 1.5,
       }}
-      labelStyle={{ color: "red", fontFamily: "ProductSans-bold" }}
-      activeColor="#0f172a"
+      labelStyle={{ fontFamily: "ProductSans-bold" }}
+      activeColor={colorScheme === "dark" ? "#f9fafb" : "#0f172a"}
       inactiveColor="#9ca3af"
-      className="bg-transparent"
+      className="bg-transparent dark:bg-zinc-800"
     />
   );
 

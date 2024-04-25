@@ -36,7 +36,7 @@ const AlertModal = ({
         onPress={onCloseCallback}
       >
         <View
-          className="absolute bg-white rounded-lg max-w-[92.5%]"
+          className="absolute bg-white dark:bg-zinc-800 rounded-lg max-w-[92.5%]"
           onLayout={onLayout}
           style={{
             top: windowHeight / 2 - modalHeight / 2,
@@ -44,12 +44,12 @@ const AlertModal = ({
         >
           <View className="p-5">{children}</View>
           <View className="flex-1 flex-row">
-            <View className="flex-1 border-r border-t border-gray-200">
+            <View className="flex-1 border-r border-t border-gray-200 dark:border-zinc-600">
               <Button type="transparent" onPress={onYesCallback}>
                 Yes
               </Button>
             </View>
-            <View className="flex-1 border-t border-gray-200">
+            <View className="flex-1 border-t border-gray-200 dark:border-zinc-600">
               <Button type="transparent" onPress={onNoCallback}>
                 No
               </Button>

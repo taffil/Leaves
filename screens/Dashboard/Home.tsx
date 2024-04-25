@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import { View, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import DaysCard from "../../components/Cards/DaysCard";
 import DropdownInput from "../../components/Inputs/Dropdown";
+import { useColorScheme } from "nativewind";
 
 const Home = () => {
+  const { colorScheme } = useColorScheme();
+
   const [leaveType, setLeaveType] = useState<string>("Annual Leave");
   const [date, setDate] = useState<string>("2024");
 
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={false} tintColor={"#0F172A"} />
+        <RefreshControl
+          refreshing={false}
+          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+        />
       }
       contentContainerStyle={styles.container}
+      className="dark:bg-zinc-800"
     >
       <View className="flex-row gap-x-2 mt-3">
-      <DropdownInput
-          style={[styles.dropdown, { flexGrow: 3 }]}
+        <DropdownInput
+          style={[{ flexGrow: 3 }]}
           data={[
             { label: "All", value: "All" },
             { label: "Annual Leave", value: "Annual Leave" },
@@ -32,7 +39,7 @@ const Home = () => {
           }}
         />
         <DropdownInput
-          style={[styles.dropdown, { flexGrow: 1 }]}
+          style={[{ flexGrow: 1 }]}
           data={[{ label: "2024", value: "2024" }]}
           placeholder="Select Date"
           value={date}

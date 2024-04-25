@@ -27,30 +27,26 @@ const LeaveRequestCard = ({
   onRemoveCallback?: () => void;
 }) => {
   return (
-    <View className="flex-column rounded-lg bg-gray-50 border border-gray-200">
-      <View className="flex-row justify-between px-4 py-2.5 bg-gray-300 rounded-t-lg">
-        <Text16 className="text-black">Employee:</Text16>
-        <Text16 className="font-productSansMedium text-black">{name}</Text16>
+    <View className="flex-column rounded-lg bg-gray-50 dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600">
+      <View className="flex-row justify-between px-4 py-2.5 bg-gray-300 dark:bg-zinc-800 rounded-t-lg">
+        <Text16>Employee:</Text16>
+        <Text16 className="font-productSansMedium">{name}</Text16>
       </View>
       <View className="flex-row justify-between px-4 py-2.5">
-        <Text16 className="text-black">Leave Type:</Text16>
-        <Text16 className="font-productSansMedium text-black">
-          {leaveType}
-        </Text16>
+        <Text16 className="">Leave Type:</Text16>
+        <Text16 className="font-productSansMedium">{leaveType}</Text16>
       </View>
       <View className="flex-row justify-between px-4 py-2.5">
-        <Text16 className="text-black">Period:</Text16>
-        <Text16 className="font-productSansMedium text-black">{period}</Text16>
+        <Text16 className="">Period:</Text16>
+        <Text16 className="font-productSansMedium">{period}</Text16>
       </View>
       <View className="flex-row justify-between px-4 py-2.5">
-        <Text16 className="text-black">Days:</Text16>
-        <Text16 className="font-productSansMedium text-black">{days}</Text16>
+        <Text16 className="">Days:</Text16>
+        <Text16 className="font-productSansMedium">{days}</Text16>
       </View>
       <View className="flex-row justify-between px-4 py-2.5">
-        <Text16 className="text-black">Requested On:</Text16>
-        <Text16 className="font-productSansMedium text-black">
-          {requestedOn}
-        </Text16>
+        <Text16 className="">Requested On:</Text16>
+        <Text16 className="font-productSansMedium">{requestedOn}</Text16>
       </View>
       {showButtons ? (
         admin ? (

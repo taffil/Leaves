@@ -8,7 +8,7 @@ interface Text20Props extends TextProps {
 const Text20 = (props: Text20Props) => {
   return (
     <Text
-      className={`text-xl font-productSansRegular text-gray-600`}
+      className={`text-xl font-productSansRegular text-gray-600 dark:text-gray-50`}
       {...props}
     >
       {props?.children}

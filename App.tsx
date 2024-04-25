@@ -7,14 +7,16 @@ import { Provider } from "react-redux";
 import { loadFonts } from "./services/loadFonts";
 import { ActivityIndicator } from "react-native";
 import AuthRoutes from "./navigation/AuthRoutes";
+import { useColorScheme } from "nativewind";
 
 const App = () => {
   const [fontloaded] = loadFonts();
+  const { colorScheme } = useColorScheme();
   let user = true;
 
   return fontloaded ? (
     <Provider store={store}>
-      <StatusBar backgroundColor={"#fff"} />
+      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
       <NavigationContainer>
         {user ? <ProtectedRoutes /> : <AuthRoutes />}
       </NavigationContainer>

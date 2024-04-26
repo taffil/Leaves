@@ -4,10 +4,11 @@ import LeaveRequestCard from "../../components/Cards/LeaveRequestCard";
 import Input from "../../components/Inputs/Input";
 import DropdownInput from "../../components/Inputs/Dropdown";
 import { LeaveRequest } from "../../types";
-import { useColorScheme } from "nativewind";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 const LeaveApprovals = () => {
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   const [leaveType, setLeaveType] = useState<string>("All");
   const [date, setDate] = useState<string>("2024");
@@ -55,7 +56,7 @@ const LeaveApprovals = () => {
       refreshControl={
         <RefreshControl
           refreshing={false}
-          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+          tintColor={darkMode ? "#f9fafb" : "#0F172A"}
         />
       }
       contentContainerStyle={styles.container}

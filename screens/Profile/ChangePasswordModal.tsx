@@ -37,6 +37,8 @@ const ChangePasswordModal = () => {
                 onChangeText={onChange}
                 value={value}
                 error={errors.password}
+                textContentType="password"
+                secureTextEntry={true}
               />
             )}
           />
@@ -57,6 +59,8 @@ const ChangePasswordModal = () => {
                 onChangeText={onChange}
                 value={value}
                 error={errors.confirmPassword}
+                textContentType="password"
+                secureTextEntry={true}
               />
             )}
           />

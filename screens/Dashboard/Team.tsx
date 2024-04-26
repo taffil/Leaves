@@ -7,17 +7,18 @@ import {
 } from "react-native";
 import React from "react";
 import MemberCard from "../../components/Cards/MemberCard";
-import { useColorScheme } from "nativewind";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 const Team = () => {
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   return (
     <ScrollView
       refreshControl={
         <RefreshControl
           refreshing={false}
-          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+          tintColor={darkMode ? "#f9fafb" : "#0F172A"}
         />
       }
       contentContainerStyle={styles.container}

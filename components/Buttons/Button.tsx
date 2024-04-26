@@ -14,7 +14,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <TouchableOpacity
-      className={`p-3 rounded-xl items-center flex-row justify-center
+      className={`p-3 rounded-lg items-center flex-row justify-center
     ${type === "primary" && mode === "contained" && "bg-green-400"}
     ${type === "secondary" && mode === "contained" && "bg-amber-400"}
     ${type === "third" && mode === "contained" && "bg-gray-200"}

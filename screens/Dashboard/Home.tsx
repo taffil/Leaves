@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { View, ScrollView, RefreshControl, StyleSheet } from "react-native";
 import DaysCard from "../../components/Cards/DaysCard";
 import DropdownInput from "../../components/Inputs/Dropdown";
-import { useColorScheme } from "nativewind";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 const Home = () => {
-  const { colorScheme } = useColorScheme();
-
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
   const [leaveType, setLeaveType] = useState<string>("Annual Leave");
   const [date, setDate] = useState<string>("2024");
 
@@ -15,7 +15,7 @@ const Home = () => {
       refreshControl={
         <RefreshControl
           refreshing={false}
-          tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+          tintColor={darkMode ? "#f9fafb" : "#0F172A"}
         />
       }
       contentContainerStyle={styles.container}

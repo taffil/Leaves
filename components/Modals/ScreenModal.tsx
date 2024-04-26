@@ -9,7 +9,8 @@ import {
 import Text16 from "../Text/Text16";
 import Button from "../Buttons/Button";
 import { AlertModalProps } from "../../types";
-import { useColorScheme } from "nativewind";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 const ScreenModal = ({
   children,
@@ -25,7 +26,7 @@ const ScreenModal = ({
   headerChildren,
   onCloseCallback,
 }: AlertModalProps) => {
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   return (
     <Modal visible={visible} animationType={animationType}>
@@ -35,7 +36,10 @@ const ScreenModal = ({
             className="flex-row items-center justify-between bg-gray-50 dark:bg-zinc-900 px-5 py-2.5 pt-14"
             {...headerViewProps}
           >
-            <Text16 className="text-black dark:text-gray-50 font-productSansBold" {...titleProps}>
+            <Text16
+              className="text-black dark:text-gray-50 font-productSansBold"
+              {...titleProps}
+            >
               {title}
             </Text16>
             <Button type="third" onPress={onCloseCallback} {...buttonProps}>
@@ -50,7 +54,7 @@ const ScreenModal = ({
           refreshControl={
             <RefreshControl
               refreshing={refershing}
-              tintColor={colorScheme === "dark" ? "#f9fafb" : "#0F172A"}
+              tintColor={darkMode ? "#f9fafb" : "#0F172A"}
             />
           }
           className="dark:bg-zinc-800"

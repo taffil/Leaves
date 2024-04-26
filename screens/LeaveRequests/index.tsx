@@ -6,12 +6,13 @@ import Button from "../../components/Buttons/Button";
 import LeaveRequestModal from "./LeaveRequestModal";
 import { LeaveRequest } from "../../types";
 import ScreenModal from "../../components/Modals/ScreenModal";
-import { useColorScheme } from "nativewind";
+import { RootState } from "../../services/store";
+import { useSelector } from "react-redux";
 
 const LeaveRequests = ({ navigation }: { navigation: any }) => {
   let admin: boolean = true;
   const layout = useWindowDimensions();
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   const [leaveRequestModal, setLeaveRequestModal] = useState<{
     visible: boolean;
@@ -120,7 +121,7 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         padding: 1.5,
       }}
       labelStyle={{ fontFamily: "ProductSans-bold" }}
-      activeColor={colorScheme === "dark" ? "#f9fafb" : "#0f172a"}
+      activeColor={darkMode ? "#f9fafb" : "#0f172a"}
       inactiveColor="#9ca3af"
       className="bg-transparent dark:bg-zinc-800"
     />

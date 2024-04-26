@@ -13,6 +13,9 @@ import LeaveRequests from "../screens/LeaveRequests";
 import { Avatar, Icon } from "react-native-paper";
 import Button from "../components/Buttons/Button";
 import { useColorScheme } from "nativewind";
+import { useDispatch } from "react-redux";
+import { setDarkMode } from "../services/slices/settingsSlice";
+import { logout } from "../services/slices/authSlice";
 
 const drawerItemStyle = {
   drawerActiveBackgroundColor: "#ffffff",
@@ -25,6 +28,7 @@ const drawerItemStyle = {
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const { colorScheme, toggleColorScheme } = useColorScheme();
+  const dispatch = useDispatch();
 
   return (
     <DrawerContentScrollView
@@ -48,7 +52,10 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         <Button
           type="transparent"
           textProps={{ style: { color: "white" } }}
-          onPress={() => toggleColorScheme()}
+          onPress={() => {
+            toggleColorScheme();
+            setTimeout(() => dispatch(setDarkMode(colorScheme !== "dark")), 50);
+          }}
           icon={
             <Icon
               source={
@@ -61,7 +68,12 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
         >
           {colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
         </Button>
-        <Button type="secondary" onPress={() => console.log("Logout")}>
+        <Button
+          type="secondary"
+          onPress={() => {
+            dispatch(logout());
+          }}
+        >
           Logout
         </Button>
       </View>

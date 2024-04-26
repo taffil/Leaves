@@ -1,11 +1,10 @@
-import { useColorScheme } from "nativewind";
 import React from "react";
 import { FieldError } from "react-hook-form";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import Text12 from "../Text/Text12";
 import Text16 from "../Text/Text16";
-import Text20 from "../Text/Text20";
+import { useSelector } from "react-redux";
+import { RootState } from "../../services/store";
 
 interface ExtendedDropdownProps {
   style?: any;
@@ -26,7 +25,7 @@ const DropdownInput = ({
   onChange,
   onBlur,
 }: ExtendedDropdownProps) => {
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   return (
     <Dropdown
@@ -34,35 +33,27 @@ const DropdownInput = ({
         styles.dropdown,
         {
           flexGrow: 1,
-          borderColor: error
-            ? "#ef4444"
-            : colorScheme === "dark"
-            ? "#52525b"
-            : "#e5e7eb",
-          backgroundColor: colorScheme === "dark" ? "#3f3f46" : "#fff",
+          borderColor: error ? "#ef4444" : darkMode ? "#52525b" : "#e5e7eb",
+          backgroundColor: darkMode ? "#3f3f46" : "#fff",
         },
         style,
       ]}
       containerStyle={[
         styles.dropdownContainer,
         {
-          borderColor: error
-            ? "#ef4444"
-            : colorScheme === "dark"
-            ? "#52525b"
-            : "#e5e7eb",
-          backgroundColor: colorScheme === "dark" ? "#3f3f46" : "#fff",
+          borderColor: error ? "#ef4444" : darkMode ? "#52525b" : "#e5e7eb",
+          backgroundColor: darkMode ? "#3f3f46" : "#fff",
         },
       ]}
       itemContainerStyle={[styles.dropdownItemContainer]}
       itemTextStyle={{
-        color: colorScheme === "dark" ? "#f9fafb" : "#4b5563",
+        color: darkMode ? "#f9fafb" : "#4b5563",
       }}
       selectedTextStyle={{
-        color: colorScheme === "dark" ? "#f9fafb" : "#4b5563",
+        color: darkMode ? "#f9fafb" : "#4b5563",
       }}
       placeholderStyle={{
-        color: colorScheme === "dark" ? "#f9fafb" : "#4b5563",
+        color: darkMode ? "#f9fafb" : "#4b5563",
       }}
       renderItem={(item) => {
         return (
@@ -91,16 +82,16 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
   },
   dropdown: {
-    borderRadius: 10,
+    borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderWidth: 1,
     marginLeft: 12,
   },
   dropdownContainer: {
-    borderRadius: 10,
+    borderRadius: 8,
   },
   dropdownItemContainer: {
-    borderRadius: 10,
+    borderRadius: 8,
   },
 });

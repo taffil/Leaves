@@ -11,7 +11,7 @@ const Input = ({ error, ...props }: InputProps) => {
     <TextInput
       placeholderTextColor={"#94a3b8"}
       style={{ fontSize: 16 }}
-      className={`px-2.5 py-3.5 bg-white dark:bg-zinc-700 w-full rounded-xl border ${
+      className={`px-2.5 py-3.5 bg-white dark:bg-zinc-700 w-full rounded-lg border ${
         error ? "border-red-500" : "border-gray-200 dark:border-zinc-600"
       } font-productSansRegular text-gray-700 dark:text-gray-50`}
       {...props}

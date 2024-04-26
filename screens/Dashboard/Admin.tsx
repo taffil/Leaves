@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { useSelector } from "react-redux";
 import Home from "./Home";
 import Team from "./Team";
-import { useColorScheme } from "nativewind";
 
 const renderScene = SceneMap({
   first: Home,
@@ -12,7 +12,7 @@ const renderScene = SceneMap({
 
 const Admin = () => {
   const layout = useWindowDimensions();
-  const { colorScheme } = useColorScheme();
+  const darkMode = useSelector((state: any) => state.settings.darkMode);
 
   const renderTabBar = (props: any) => (
     <TabBar
@@ -23,7 +23,7 @@ const Admin = () => {
         padding: 1.5,
       }}
       labelStyle={{ fontFamily: "ProductSans-bold" }}
-      activeColor={colorScheme === "dark" ? "#f9fafb" : "#0f172a"}
+      activeColor={darkMode ? "#f9fafb" : "#0f172a"}
       inactiveColor="#9ca3af"
       className="bg-transparent dark:bg-zinc-800"
     />

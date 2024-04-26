@@ -2,24 +2,26 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import ProtectedRoutes from "./navigation/ProtectedRoutes";
-import { store } from "./services/store";
-import { Provider } from "react-redux";
+import { store, persistor, RootState } from "./services/store";
+import { Provider, useSelector } from "react-redux";
 import { loadFonts } from "./services/loadFonts";
 import { ActivityIndicator } from "react-native";
 import AuthRoutes from "./navigation/AuthRoutes";
 import { useColorScheme } from "nativewind";
+import { PersistGate } from "redux-persist/integration/react";
 
-const App = () => {
+export default () => {
   const [fontloaded] = loadFonts();
   const { colorScheme } = useColorScheme();
-  let user = true;
 
   return fontloaded ? (
     <Provider store={store}>
-      <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
-      <NavigationContainer>
-        {user ? <ProtectedRoutes /> : <AuthRoutes />}
-      </NavigationContainer>
+      <PersistGate loading={null} persistor={persistor}>
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   ) : (
     <ActivityIndicator
@@ -34,4 +36,8 @@ const App = () => {
   );
 };
 
-export default App;
+const AppNavigator = () => {
+  const user = useSelector((state: RootState) => state.auth);
+
+  return user?.email ? <ProtectedRoutes /> : <AuthRoutes />;
+};

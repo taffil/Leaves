@@ -59,10 +59,4 @@ interface AlertModalProps extends ModalProps {
   onNoCallback?: () => void;
 }
 
-interface User {
-  name: string;
-  email: string;
-  role: string;
-}
-
-export type { LeaveRequest, Authorization, ButtonProps, AlertModalProps, User };
+export type { LeaveRequest, Authorization, ButtonProps, AlertModalProps };

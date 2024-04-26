@@ -1,22 +1,26 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import { useColorScheme } from "nativewind";
 import Login from "../screens/Auth/Login";
+import { View } from "react-native";
+import Text18 from "../components/Text/Text18";
 
 const Stack = createNativeStackNavigator();
 
 const AuthRoutes = () => {
-  const { colorScheme } = useColorScheme();
-
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Login"
         component={Login}
         options={{
-          headerTintColor: colorScheme === "dark" ? "#f9fafb" : "#0f172a",
-          headerStyle: {
-            backgroundColor: colorScheme === "dark" ? "#18181b" : "#f8fafc",
+          header: () => {
+            return (
+              <View className="items-center pb-2 pt-[60px] bg-gray-50 dark:bg-zinc-900">
+                <Text18 className="font-productSansBold text-black dark:text-gray-50">
+                  Login
+                </Text18>
+              </View>
+            );
           },
         }}
       />

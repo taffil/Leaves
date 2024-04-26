@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "selector",
   content: [
     "./App.{js,jsx,ts,tsx}",
     "./screens/**/*.{js,jsx,ts,tsx}",
@@ -9,7 +10,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ...require("tailwindcss/colors"),
         background: "#F1F5F9",
         primary: "#0F172A",
         secondary: "#E2E8F0",

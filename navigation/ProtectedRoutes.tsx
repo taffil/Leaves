@@ -10,12 +10,12 @@ import Dashboard from "../screens/Dashboard";
 import Profile from "../screens/Profile";
 import LeaveApprovals from "../screens/LeaveApprovals";
 import LeaveRequests from "../screens/LeaveRequests";
-import { Avatar, Icon } from "react-native-paper";
+import { Avatar } from "react-native-paper";
 import Button from "../components/Buttons/Button";
 import { useColorScheme } from "nativewind";
 import { useDispatch } from "react-redux";
-import { setDarkMode } from "../services/slices/settingsSlice";
 import { logout } from "../services/slices/authSlice";
+import Text14 from "../components/Text/Text14";
 
 const drawerItemStyle = {
   drawerActiveBackgroundColor: "#ffffff",
@@ -27,7 +27,6 @@ const drawerItemStyle = {
 };
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
-  const { colorScheme, toggleColorScheme } = useColorScheme();
   const dispatch = useDispatch();
 
   return (
@@ -45,11 +44,14 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           ) : (
             <Avatar.Text label="JD" />
           )}
+          <Text14 className="font-bold mt-2 text-gray-400">
+            Welcome on board Halil
+          </Text14>
         </View>
         <DrawerItemList {...props} />
       </View>
       <View className="p-5 pb-10 flex-col gap-y-3">
-        <Button
+        {/* <Button
           type="transparent"
           textProps={{ style: { color: "white" } }}
           onPress={() => {
@@ -67,7 +69,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           }
         >
           {colorScheme === "dark" ? "Light Mode" : "Dark Mode"}
-        </Button>
+        </Button> */}
         <Button
           type="secondary"
           onPress={() => {

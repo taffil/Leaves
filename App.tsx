@@ -3,12 +3,14 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import ProtectedRoutes from "./navigation/ProtectedRoutes";
 import { store, persistor, RootState } from "./services/store";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { loadFonts } from "./services/loadFonts";
 import { ActivityIndicator } from "react-native";
 import AuthRoutes from "./navigation/AuthRoutes";
 import { useColorScheme } from "nativewind";
 import { PersistGate } from "redux-persist/integration/react";
+import { setDarkMode } from "./services/slices/settingsSlice";
+import { useEffect } from "react";
 
 export default () => {
   const [fontloaded] = loadFonts();
@@ -38,6 +40,11 @@ export default () => {
 
 const AppNavigator = () => {
   const user = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setDarkMode(false));
+  }, []);
 
   return user?.email ? <ProtectedRoutes /> : <AuthRoutes />;
 };

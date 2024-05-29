@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, View, useWindowDimensions } from "react-native";
+import { Alert, Dimensions, View, useWindowDimensions } from "react-native";
 import { TabView, TabBar } from "react-native-tab-view";
 import User from "./User";
 import Button from "../../components/Buttons/Button";
@@ -116,12 +116,12 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
     <TabBar
       {...props}
       indicatorStyle={{
-        backgroundColor: "transparent",
-        borderRadius: 10,
-        padding: 1.5,
+        width: 100,
+        left: (Dimensions.get("window").width / routes.length - 100) / 2,
+        backgroundColor: "#4f46e5",
       }}
       labelStyle={{ fontFamily: "ProductSans-bold" }}
-      activeColor={darkMode ? "#f9fafb" : "#0f172a"}
+      activeColor={darkMode ? "#4f46e5" : "#4f46e5"}
       inactiveColor="#9ca3af"
       className="bg-transparent dark:bg-zinc-800"
     />

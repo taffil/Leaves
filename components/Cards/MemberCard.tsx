@@ -18,16 +18,20 @@ const MemberCard = (props: {
         ) : (
           <Avatar.Text size={84} label="JD" />
         )}
-        <Text16 className="font-productSansMedium mt-2">
-          {props.name}
-        </Text16>
+        <Text16 className="font-productSansMedium mt-2">{props.name}</Text16>
         <Text14 className="">{props.role}</Text14>
       </View>
       <View className="justify-center items-center p-3">
+        <Text16 className="text-blue-500">
+          All days: {props.requiredDays}
+        </Text16>
+        <Text16 className="text-green-500">
+          Available days: {props.usedDays}
+        </Text16>
+        <Text16 className="text-red-500">Used days: {props.usedDays}</Text16>
         <Text16 className="text-orange-500">
           Required days: {props.requiredDays}
         </Text16>
-        <Text16 className="text-green-500">Used days: {props.usedDays}</Text16>
       </View>
     </View>
   );

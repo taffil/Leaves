@@ -50,14 +50,26 @@ const Home = () => {
       </View>
       <View className="flex-col mt-3">
         <DaysCard
-          title="Used Days"
-          value="10"
+          title="All Days"
+          value="44"
+          valueClassNames="text-blue-500"
+          classNames="mb-4"
+        />
+        <DaysCard
+          title="Available Days"
+          value="27"
           valueClassNames="text-green-500"
           classNames="mb-4"
         />
         <DaysCard
+          title="Used Days"
+          value="10"
+          valueClassNames="text-red-500"
+          classNames="mb-4"
+        />
+        <DaysCard
           title="Required Days"
-          value="27"
+          value="15"
           valueClassNames="text-orange-500"
         />
       </View>

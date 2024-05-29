@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Modal,
   RefreshControl,
+  Platform,
 } from "react-native";
 import Text16 from "../Text/Text16";
 import Button from "../Buttons/Button";
@@ -33,7 +34,9 @@ const ScreenModal = ({
       <KeyboardAvoidingView behavior="padding" className="flex-1">
         {headerShow && (
           <View
-            className="flex-row items-center justify-between bg-gray-50 dark:bg-zinc-900 px-5 py-2.5 pt-14"
+            className={`flex-row items-center justify-between bg-gray-50 dark:bg-zinc-900 px-5 py-2.5 ${
+              Platform.OS === "ios" && "pt-14"
+            }`}
             {...headerViewProps}
           >
             <Text16

@@ -120,6 +120,7 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         left: (Dimensions.get("window").width / routes.length - 100) / 2,
         backgroundColor: "#4f46e5",
       }}
+      pressColor="transparent"
       labelStyle={{ fontFamily: "ProductSans-bold" }}
       activeColor={darkMode ? "#4f46e5" : "#4f46e5"}
       inactiveColor="#9ca3af"

@@ -53,7 +53,7 @@ const Team = () => {
             usedDays: "10",
           },
         ].map((item) => (
-          <TouchableOpacity key={item.key}>
+          <TouchableOpacity key={item.key} className="w-[47.5%]">
             <MemberCard
               name={item.name}
               role={item.role}

@@ -1,5 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { View } from "react-native";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Platform, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useForm, Controller } from "react-hook-form";
 import Text16 from "../../components/Text/Text16";
@@ -26,11 +26,15 @@ const LeaveRequestModal = ({
   data: LeaveRequest[];
   setData: Dispatch<SetStateAction<LeaveRequest[]>>;
 }) => {
+  const [show, setShow] = useState<boolean>(false);
+  const [showToDate, setShowToDate] = useState<boolean>(false);
+
   const {
     control,
     handleSubmit,
     setValue,
     formState: { errors },
+    getValues,
   } = useForm({
     defaultValues: {
       decision:
@@ -186,48 +190,122 @@ const LeaveRequestModal = ({
                 )}
               />
             </View>
-            {errors.leaveType && <TextError className="w-3/4 self-end">Leave Type is required.</TextError>}
+            {errors.leaveType && (
+              <TextError className="w-3/4 self-end">
+                Leave Type is required.
+              </TextError>
+            )}
           </View>
           <View className="flex-row items-center">
             <Text16 className="w-1/4">From Date:</Text16>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              name="fromDate"
-              render={({ field: { value } }) => (
-                <DateTimePicker
-                  value={value}
-                  mode="date"
-                  display="default"
-                  onChange={(_, date?: Date) => {
-                    setValue("fromDate", date ? date : new Date());
+            {Platform.OS === "ios" ? (
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                name="fromDate"
+                render={({ field: { value } }) => (
+                  <DateTimePicker
+                    value={value}
+                    mode="date"
+                    display="default"
+                    onChange={(_, date?: Date) => {
+                      setValue("fromDate", date ? date : new Date());
+                    }}
+                  />
+                )}
+              />
+            ) : (
+              <View className="w-3/4 pl-2">
+                {show && (
+                  <DateTimePicker
+                    value={getValues("fromDate")}
+                    mode="date"
+                    display="default"
+                    onChange={(_, date?: Date) => {
+                      setValue("fromDate", date ? date : new Date());
+                      setShow(false);
+                    }}
+                  />
+                )}
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  name="fromDate"
+                  render={({ field: { value } }) => {
+                    return (
+                      <Input
+                        value={value.toLocaleDateString()}
+                        error={errors.description}
+                        onPress={() => {
+                          setShow(true);
+                        }}
+                        showSoftInputOnFocus={false}
+                      />
+                    );
                   }}
                 />
-              )}
-            />
+              </View>
+            )}
             {errors.fromDate && <TextError>From Date is required.</TextError>}
           </View>
           <View className="flex-row items-center">
             <Text16 className="w-1/4">To Date:</Text16>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              name="toDate"
-              render={({ field: { value } }) => (
-                <DateTimePicker
-                  value={value}
-                  mode="date"
-                  display="default"
-                  onChange={(_, date?: Date) => {
-                    setValue("toDate", date ? date : new Date());
+            {Platform.OS === "ios" ? (
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                name="toDate"
+                render={({ field: { value } }) => (
+                  <DateTimePicker
+                    value={value}
+                    mode="date"
+                    display="default"
+                    onChange={(_, date?: Date) => {
+                      setValue("toDate", date ? date : new Date());
+                    }}
+                  />
+                )}
+              />
+            ) : (
+              <View className="w-3/4 pl-2">
+                {showToDate && (
+                  <DateTimePicker
+                    value={getValues("toDate")}
+                    mode="date"
+                    display="default"
+                    onChange={(_, date?: Date) => {
+                      setValue("toDate", date ? date : new Date());
+                      setShowToDate(false);
+                    }}
+                  />
+                )}
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  name="toDate"
+                  render={({ field: { value } }) => {
+                    return (
+                      <Input
+                        value={value.toLocaleDateString()}
+                        error={errors.description}
+                        onPress={() => {
+                          setShowToDate(true);
+                        }}
+                        showSoftInputOnFocus={false}
+                      />
+                    );
                   }}
                 />
-              )}
-            />
+              </View>
+            )}
             {errors.toDate && <TextError>To Date is required.</TextError>}
           </View>
           <View className="flex-row items-center justify-between">

@@ -13,9 +13,10 @@ import LeaveRequests from "../screens/LeaveRequests";
 import { Avatar } from "react-native-paper";
 import Button from "../components/Buttons/Button";
 import { useColorScheme } from "nativewind";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../services/slices/authSlice";
 import Text14 from "../components/Text/Text14";
+import { RootState } from "../services/store";
 
 const drawerItemStyle = {
   drawerActiveBackgroundColor: "#ffffff",
@@ -28,6 +29,7 @@ const drawerItemStyle = {
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth);
 
   return (
     <DrawerContentScrollView
@@ -42,10 +44,15 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
           {!require("../assets/icon.png") ? (
             <Avatar.Image source={require("../assets/icon.png")} />
           ) : (
-            <Avatar.Text label="JD" />
+            <Avatar.Text
+              label={
+                (user?.firstName ?? "").charAt(0) +
+                (user?.lastName ?? "").charAt(0)
+              }
+            />
           )}
           <Text14 className="font-bold mt-2 text-gray-400">
-            Welcome on board Halil
+            Welcome on board {user?.firstName}
           </Text14>
         </View>
         <DrawerItemList {...props} />

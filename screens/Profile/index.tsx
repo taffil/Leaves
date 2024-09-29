@@ -22,6 +22,7 @@ import { RootState } from "../../services/store";
 
 const Profile = () => {
   const darkMode = useSelector((state: RootState) => state.settings.darkMode);
+  const user = useSelector((state: RootState) => state.auth);
 
   const [changePasswordModal, setChangePasswordModal] =
     useState<boolean>(false);
@@ -75,7 +76,10 @@ const Profile = () => {
               {image ? (
                 <Avatar.Image source={{ uri: image }} size={128} />
               ) : (
-                <Avatar.Text label="JD" size={128} />
+                <Avatar.Text
+                  label={(user?.firstName ?? "").charAt(0) + (user?.lastName ?? "").charAt(0)}
+                  size={128}
+                />
               )}
               <View className="flex-row">
                 <Button type="transparent" onPress={pickImage}>

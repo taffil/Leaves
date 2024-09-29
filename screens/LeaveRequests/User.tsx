@@ -9,11 +9,13 @@ import { RootState } from "../../services/store";
 const User = ({
   admin,
   data,
+  onApproveCallback,
   onEditCallback,
   onRemoveCallback,
 }: {
   admin: boolean;
   data: any[];
+  onApproveCallback: (value: number) => void;
   onEditCallback: (value: number) => void;
   onRemoveCallback: (value: number) => void;
 }) => {
@@ -69,6 +71,7 @@ const User = ({
           <LeaveRequestCard
             admin={admin}
             {...item}
+            onApproveCallback={() => onApproveCallback(idx)}
             onEditCallback={() => onEditCallback(idx)}
             onRemoveCallback={() => onRemoveCallback(idx)}
           />

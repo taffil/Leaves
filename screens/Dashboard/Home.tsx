@@ -51,19 +51,19 @@ const Home = () => {
       <View className="flex-col mt-3">
         <DaysCard
           title="All Days"
-          value="44"
+          value="20"
           valueClassNames="text-blue-500"
           classNames="mb-4"
         />
         <DaysCard
           title="Available Days"
-          value="27"
+          value="15"
           valueClassNames="text-green-500"
           classNames="mb-4"
         />
         <DaysCard
           title="Used Days"
-          value="10"
+          value="5"
           valueClassNames="text-red-500"
           classNames="mb-4"
         />

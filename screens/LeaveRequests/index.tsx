@@ -10,7 +10,7 @@ import { RootState } from "../../services/store";
 import { useSelector } from "react-redux";
 
 const LeaveRequests = ({ navigation }: { navigation: any }) => {
-  let admin: boolean = true;
+  const user = useSelector((state: RootState) => state.auth);
   const layout = useWindowDimensions();
   const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
@@ -22,38 +22,38 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
     dataIndex: null,
   });
   const [data, setData] = useState<LeaveRequest[]>([
-    {
-      key: 1,
-      name: "John Doe",
-      leaveType: "Annual Leave",
-      decision: "Approved",
-      period: "10.01.2024 - 20.01.2024",
-      days: "10",
-      requestedOn: "01.01.2024",
-      fromDate: new Date(),
-      toDate: new Date(),
-      description: "On Vacation",
-    },
+    // {
+    //   key: 1,
+    //   name: "Halil Sadiku",
+    //   leaveType: "Annual Leave",
+    //   decision: "Approved",
+    //   period: "11.11.2024 - 20.11.2024",
+    //   days: "8",
+    //   requestedOn: "07.09.2024",
+    //   fromDate: new Date(),
+    //   toDate: new Date(),
+    //   description: "On Vacation",
+    // },
     {
       key: 2,
-      name: "John Doe",
+      name: "Tafil Osmani",
       leaveType: "Sick Leave",
       decision: "Approved",
-      period: "10.01.2024 - 20.01.2024",
-      days: "10",
-      requestedOn: "01.01.2024",
+      period: "07.05.2024 - 10.05.2024",
+      days: "4",
+      requestedOn: "10.05.2024",
       fromDate: new Date(),
       toDate: new Date(),
       description: "Sick",
     },
     {
       key: 3,
-      name: "John Doe",
+      name: "Filan Fisteku",
       leaveType: "Annual Leave",
       decision: "Approved",
-      period: "10.01.2024 - 20.01.2024",
+      period: "23.12.2024 - 03.01.2025",
       days: "10",
-      requestedOn: "01.01.2024",
+      requestedOn: "01.10.2024",
       fromDate: new Date(),
       toDate: new Date(),
       description: "On Vacation",
@@ -67,9 +67,29 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
     });
   };
 
+  const onApprove = (index: number) => {
+    Alert.alert(
+      "Approve Leave Request?",
+      "Are you sure you want to approve this leave request?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () =>
+            setData((prev) => {
+              return prev.filter((_, itemIndex) => itemIndex !== index);
+            }),
+        },
+      ]
+    );
+  };
+
   const onRemove = (index: number) => {
     Alert.alert(
-      "Remove Leave Request?",
+      "Reject Leave Request?",
       "Are you sure you want to remove this leave request?",
       [
         {
@@ -92,8 +112,9 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
       case "first":
         return (
           <User
-            admin={admin}
+            admin={user.admin}
             data={data}
+            onApproveCallback={onApprove}
             onEditCallback={onEdit}
             onRemoveCallback={onRemove}
           />
@@ -101,8 +122,9 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
       case "second":
         return (
           <User
-            admin={admin}
+            admin={user.admin}
             data={data}
+            onApproveCallback={onApprove}
             onEditCallback={onEdit}
             onRemoveCallback={onRemove}
           />
@@ -158,7 +180,7 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
 
   return (
     <>
-      {admin ? (
+      {user.admin ? (
         <TabView
           navigationState={{ index, routes }}
           renderScene={renderScene}
@@ -168,8 +190,9 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         />
       ) : (
         <User
-          admin={admin}
+          admin={user.admin}
           data={data}
+          onApproveCallback={onApprove}
           onEditCallback={onEdit}
           onRemoveCallback={onRemove}
         />
@@ -189,7 +212,7 @@ const LeaveRequests = ({ navigation }: { navigation: any }) => {
         }
       >
         <LeaveRequestModal
-          admin={admin}
+          admin={user.admin}
           index={index}
           setLeaveRequestModal={setLeaveRequestModal}
           leaveRequestModal={leaveRequestModal}

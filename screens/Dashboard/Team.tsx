@@ -33,33 +33,34 @@ const Team = () => {
         {[
           {
             key: "1",
-            name: "John Doe",
+            name: "Halil Sadiku",
             role: "Software Engineer",
-            requiredDays: "27",
-            usedDays: "10",
+            allDays: "20",
+            availableDays: "15",
+            requiredDays: "20",
+            usedDays: "5",
           },
           {
             key: "2",
-            name: "John Doe",
+            name: "Tafil Osmani",
             role: "Software Engineer",
-            requiredDays: "27",
-            usedDays: "10",
+            allDays: "20",
+            availableDays: "10",
+            requiredDays: "20",
+            usedDays: "5",
           },
           {
             key: "3",
-            name: "John Doe",
+            name: "Filan Fisteku",
             role: "Software Engineer",
-            requiredDays: "27",
+            allDays: "20",
+            availableDays: "10",
+            requiredDays: "20",
             usedDays: "10",
           },
         ].map((item) => (
           <TouchableOpacity key={item.key} className="w-[47.5%]">
-            <MemberCard
-              name={item.name}
-              role={item.role}
-              requiredDays={item.requiredDays}
-              usedDays={item.usedDays}
-            />
+            <MemberCard {...item} />
           </TouchableOpacity>
         ))}
       </View>

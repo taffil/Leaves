@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Platform, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useForm, Controller } from "react-hook-form";
@@ -8,6 +8,7 @@ import DropdownInput from "../../components/Inputs/Dropdown";
 import Input from "../../components/Inputs/Input";
 import TextError from "../../components/Text/TextError";
 import { LeaveRequest } from "../../types";
+import { useCreateLeaveRequestMutation } from "../../services/api/requestsApi";
 
 const LeaveRequestModal = ({
   admin,
@@ -64,25 +65,38 @@ const LeaveRequestModal = ({
     },
   });
 
-  const onSubmit = (leaveRequest: any) => {
-    if (leaveRequestModal.dataIndex !== null) {
-    } else {
-      setData((prev) => {
-        return [
-          ...prev,
-          {
-            key: prev.length + 1,
-            name: "John Doe",
-            period: "10.01.2024 - 20.01.2024",
-            requestedOn: "01.01.2024",
-            decision: "Pending",
-            ...leaveRequest,
-          },
-        ];
-      });
-    }
-    setLeaveRequestModal({ visible: false, dataIndex: null });
+  // const onSubmit = (leaveRequest: any) => {
+  //   if (leaveRequestModal.dataIndex !== null) {
+  //   } else {
+  //     setData((prev) => {
+  //       return [
+  //         ...prev,
+  //         {
+  //           key: prev.length + 1,
+  //           name: "John Doe",
+  //           period: "10.01.2024 - 20.01.2024",
+  //           requestedOn: "01.01.2024",
+  //           decision: "Pending",
+  //           ...leaveRequest,
+  //         },
+  //       ];
+  //     });
+  //   }
+  //   setLeaveRequestModal({ visible: false, dataIndex: null });
+  // };
+
+  const [createLeaveRequest, { isLoading, error, isSuccess, isError }] =
+    useCreateLeaveRequestMutation();
+
+  const onSubmit = async (leaveRequest: LeaveRequest) => {
+    await createLeaveRequest(leaveRequest);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setLeaveRequestModal({ visible: false, dataIndex: null });
+    }
+  }, [isSuccess]);
 
   return (
     <View className="flex-1 justify-between pb-10">
@@ -361,6 +375,7 @@ const LeaveRequestModal = ({
             type="secondary"
             className="px-6 py-3"
             onPress={handleSubmit(onSubmit)}
+            loading={isLoading}
           >
             Save
           </Button>
@@ -369,10 +384,12 @@ const LeaveRequestModal = ({
             type="primary"
             className="px-6 py-3"
             onPress={handleSubmit(onSubmit)}
+            loading={isLoading}
           >
             Add
           </Button>
         )}
+        {isError && <TextError>Error: {error?.data?.message}</TextError>}
       </View>
     </View>
   );

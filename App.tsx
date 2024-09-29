@@ -46,5 +46,5 @@ const AppNavigator = () => {
     dispatch(setDarkMode(false));
   }, []);
 
-  return user?.email ? <ProtectedRoutes /> : <AuthRoutes />;
+  return user?.id ? <ProtectedRoutes /> : <AuthRoutes />;
 };

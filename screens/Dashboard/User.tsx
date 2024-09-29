@@ -48,15 +48,27 @@ const User = () => {
         />
       </View>
       <View className="flex-col mt-3">
+      <DaysCard
+          title="All Days"
+          value="20"
+          valueClassNames="text-blue-500"
+          classNames="mb-4"
+        />
         <DaysCard
-          title="Used Days"
+          title="Available Days"
           value="10"
           valueClassNames="text-green-500"
           classNames="mb-4"
         />
         <DaysCard
+          title="Used Days"
+          value="10"
+          valueClassNames="text-red-500"
+          classNames="mb-4"
+        />
+        <DaysCard
           title="Required Days"
-          value="27"
+          value="20"
           valueClassNames="text-orange-500"
         />
       </View>

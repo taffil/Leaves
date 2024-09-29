@@ -7,6 +7,18 @@ import {
 } from "react-native";
 import { TouchableOpacityProps } from "react-native";
 
+interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+interface TokenPayload {
+  _id: string;
+  isAdmin: boolean;
+  iat: number;
+  exp: number;
+}
+
 interface LeaveRequest {
   key: number;
   name: string;
@@ -40,6 +52,7 @@ interface ButtonProps extends TouchableOpacityProps {
   icon?: any;
   mode?: "contained" | "outlined";
   textProps?: TextProps;
+  loading?: boolean;
 }
 
 interface AlertModalProps extends ModalProps {
@@ -59,4 +72,11 @@ interface AlertModalProps extends ModalProps {
   onNoCallback?: () => void;
 }
 
-export type { LeaveRequest, Authorization, ButtonProps, AlertModalProps };
+export type {
+  LeaveRequest,
+  Authorization,
+  ButtonProps,
+  AlertModalProps,
+  LoginRequest,
+  TokenPayload,
+};

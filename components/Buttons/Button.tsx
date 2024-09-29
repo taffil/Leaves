@@ -10,6 +10,7 @@ const Button = ({
   mode = "contained",
   children,
   textProps,
+  loading,
   ...props
 }: ButtonProps) => {
   return (
@@ -32,6 +33,7 @@ const Button = ({
       mode === "outlined" &&
       "border border-transparent"
     }`}
+      disabled={loading}
       {...props}
     >
       {icon ? icon : null}

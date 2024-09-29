@@ -48,6 +48,12 @@ const LeaveRequestCard = ({
         <Text16 className="">Requested On:</Text16>
         <Text16 className="font-productSansMedium">{requestedOn}</Text16>
       </View>
+      {!admin && (
+        <View className="flex-row justify-between px-4 py-2.5">
+          <Text16 className="">Status</Text16>
+          <Text16 className="font-productSansMedium">Pending</Text16>
+        </View>
+      )}
       {showButtons ? (
         admin ? (
           <View className="flex-row justify-end px-4 py-2.5 gap-y-2 rounded-b-lg">

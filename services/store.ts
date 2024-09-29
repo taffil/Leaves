@@ -13,6 +13,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import { GetDefaultMiddleware } from "@reduxjs/toolkit/dist/getDefaultMiddleware";
+import apis from "./api/index";
 
 const persistConfig = {
   key: "root",
@@ -26,9 +27,9 @@ const customMiddleware = (getDefaultMiddleware: GetDefaultMiddleware) => {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   });
-  // for (const slice of index) {
-  //   middleware.push(slice.middleware);
-  // }
+  for (const slice of apis) {
+    middleware.push(slice.middleware);
+  }
   return middleware;
 };
 

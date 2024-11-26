@@ -24,36 +24,36 @@ export const authApi = createApi({
           body,
         };
       },
-      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      //   try {
-      //     const response = await queryFulfilled;
-      //     const decoded = jwtDecode<TokenPayload>(response.data.accessToken);
-      //     const userResponse = {
-      //       id: response.data.currentUser._id,
-      //       username: response.data.currentUser.username,
-      //       employeeId: response.data.currentUser.employeeId,
-      //       firstName: response.data.currentUser.firstName,
-      //       lastName: response.data.currentUser.lastName,
-      //       avatar: response.data.currentUser.avatar,
-      //       token: response.data.accessToken,
-      //       admin: decoded.isAdmin,
-      //     };
-      //     dispatch(setUser(userResponse));
-      //   } catch (error) {
-      //     dispatch(
-      //       setUser({
-      //         id: null,
-      //         username: null,
-      //         employeeId: null,
-      //         firstName: null,
-      //         lastName: null,
-      //         avatar: null,
-      //         token: null,
-      //         admin: false,
-      //       })
-      //     );
-      //   }
-      // },
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const response = await queryFulfilled;
+          const decoded = jwtDecode<TokenPayload>(response.data.accessToken);
+          const userResponse = {
+            id: response.data.currentUser._id,
+            username: response.data.currentUser.username,
+            employeeId: response.data.currentUser.employeeId,
+            firstName: response.data.currentUser.firstName,
+            lastName: response.data.currentUser.lastName,
+            avatar: response.data.currentUser.avatar,
+            token: response.data.accessToken,
+            admin: decoded.isAdmin,
+          };
+          dispatch(setUser(userResponse));
+        } catch (error) {
+          dispatch(
+            setUser({
+              id: null,
+              username: null,
+              employeeId: null,
+              firstName: null,
+              lastName: null,
+              avatar: null,
+              token: null,
+              admin: false,
+            })
+          );
+        }
+      },
     }),
   }),
 });

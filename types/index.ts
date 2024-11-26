@@ -55,7 +55,7 @@ interface ButtonProps extends TouchableOpacityProps {
   loading?: boolean;
 }
 
-interface AlertModalProps extends ModalProps {
+interface ScreenModalProps extends ModalProps {
   children: ReactNode;
   headerShow?: boolean;
   title?: string;
@@ -76,7 +76,7 @@ export type {
   LeaveRequest,
   Authorization,
   ButtonProps,
-  AlertModalProps,
+  ScreenModalProps,
   LoginRequest,
   TokenPayload,
 };

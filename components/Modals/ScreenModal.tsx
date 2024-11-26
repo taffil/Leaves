@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Text16 from "../Text/Text16";
 import Button from "../Buttons/Button";
-import { AlertModalProps } from "../../types";
+import { ScreenModalProps } from "../../types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../services/store";
 
@@ -26,7 +26,7 @@ const ScreenModal = ({
   buttonProps,
   headerChildren,
   onCloseCallback,
-}: AlertModalProps) => {
+}: ScreenModalProps) => {
   const darkMode = useSelector((state: RootState) => state.settings.darkMode);
 
   return (

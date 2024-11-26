@@ -15,8 +15,8 @@ const MemberCard = (props: {
   return (
     <View className="bg-white dark:bg-zinc-700 rounded-lg items-center p-3 border border-gray-200 dark:border-zinc-600">
       <View className="justify-center items-center border-b-2 border-b-gray-300 p-3">
-        {!require("../../assets/icon.png") ? (
-          <Avatar.Image size={84} source={require("../../assets/icon.png")} />
+        {!require("../../assets/icons/icon.png") ? (
+          <Avatar.Image size={84} source={require("../../assets/icons/icon.png")} />
         ) : (
           <Avatar.Text
             size={84}

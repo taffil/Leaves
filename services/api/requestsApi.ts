@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_BASE_URL, selectAuthToken } from "../enviroment";
 import { RootState } from "../store"; // Adjust the import path based on your project structure
+import { selectAuthToken } from "../slices/authSlice";
+import { API_BASE_URL } from "../enviroment";
 
 export const requestsApi = createApi({
   reducerPath: "requestsApi",
@@ -20,7 +21,11 @@ export const requestsApi = createApi({
   tagTypes: ["Approvals", "Requests"],
   endpoints: (builder) => ({
     getLeaveRequests: builder.query({
-      query: ({ year }) => `leaveRequest/${year}`,
+      query: (year) => `leaveRequest/${year}`,
+    }),
+    getTeamLeaveRequests: builder.query({
+      query: (year) =>
+        `/leaveRequest/allemployeesLeaveDaysFilteredByYear/${year}`,
     }),
     getLeaveRequest: builder.query({
       query: (id) => `leaveRequest/getSingleLeaveRequest/${id}`,

@@ -1,3 +1,5 @@
 import { authApi } from "./authApi";
+import { requestsApi } from "./requestsApi";
 
-export default [authApi];
+export default [authApi, requestsApi];
+export { authApi, requestsApi };

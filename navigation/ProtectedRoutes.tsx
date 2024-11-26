@@ -41,8 +41,8 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     >
       <View>
         <View className="py-5 items-center">
-          {!require("../assets/icon.png") ? (
-            <Avatar.Image source={require("../assets/icon.png")} />
+          {!require("../assets/icons/icon.png") ? (
+            <Avatar.Image source={require("../assets/icons/icon.png")} />
           ) : (
             <Avatar.Text
               label={

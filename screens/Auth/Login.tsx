@@ -9,16 +9,12 @@ import { Controller, useForm } from "react-hook-form";
 import Input from "../../components/Inputs/Input";
 import TextError from "../../components/Text/TextError";
 import Button from "../../components/Buttons/Button";
-import { LoginRequest, TokenPayload } from "../../types";
+import { LoginRequest } from "../../types";
 import { useLoginMutation } from "../../services/api/authApi";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../services/slices/authSlice";
-import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
+import { showErrorAlert } from "../../utils/alert";
 
 const Login = () => {
-  const [login, { isLoading, isError, error, isSuccess }] = useLoginMutation();
-  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
   const {
     control,
     handleSubmit,
@@ -30,35 +26,13 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data: LoginRequest) => {
-    // await login(data);
-    const decoded = jwtDecode<TokenPayload>(
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThkZmNiNmY3ZDBlOWIzYWU1NmRkMTEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MjU3MTgyOTEsImV4cCI6MTcyNTcyMTg5MX0.FjSAkZdtvtwOeGai_23KH-dDtNAO6F-_tB5EKSr8PA0"
-    );
-    dispatch(
-      setUser({
-        token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThkZmNiNmY3ZDBlOWIzYWU1NmRkMTEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MjU3MTgyOTEsImV4cCI6MTcyNTcyMTg5MX0.FjSAkZdtvtwOeGai_23KH-dDtNAO6F-_tB5EKSr8PA0",
-        id: "658dfcb6f7d0e9b3ae56dd11",
-        username: "tafil",
-        employeeId: "658dfc6af7d0e9b3ae56dcf2",
-        firstName: "Tafil",
-        lastName: "Osmani",
-        avatar:
-        "png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png",
-        admin: true,
-      })
-    );
+  const onSubmit = async (data: LoginRequest) => {
+    try {
+      await login(data).unwrap();
+    } catch (error) {
+      showErrorAlert(error);
+    }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      console.log("Success");
-    }
-    if (isError) {
-      console.log("Error");
-    }
-  }, [isSuccess]);
 
   return (
     <KeyboardAvoidingView className="flex-1" behavior="padding">
@@ -109,7 +83,6 @@ const Login = () => {
             )}
           />
           {errors.password && <TextError>{errors.password.message}</TextError>}
-          {isError && <TextError>{error.error}</TextError>}
         </View>
         <View>
           <Button

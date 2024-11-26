@@ -14,11 +14,10 @@ import { Controller, useForm } from "react-hook-form";
 import TextError from "../../components/Text/TextError";
 import ScreenModal from "../../components/Modals/ScreenModal";
 import ChangePasswordModal from "./ChangePasswordModal";
-import { MediaTypeOptions, launchImageLibraryAsync } from "expo-image-picker";
-import AlertModal from "../../components/Modals/AlertModal";
-import Text16 from "../../components/Text/Text16";
+import { launchImageLibraryAsync } from "expo-image-picker";
 import { useSelector } from "react-redux";
 import { RootState } from "../../services/store";
+import { showYesNoAlert } from "../../utils/alert";
 
 const Profile = () => {
   const darkMode = useSelector((state: RootState) => state.settings.darkMode);
@@ -27,12 +26,10 @@ const Profile = () => {
   const [changePasswordModal, setChangePasswordModal] =
     useState<boolean>(false);
   const [image, setImage] = useState<string | null>(null);
-  const [removeImageModal, setRemoveImageModal] = useState<boolean>(false);
-  const [removeAccountModal, setRemoveAccountModal] = useState<boolean>(false);
 
   const pickImage = async () => {
     let result = await launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: ["images"],
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
@@ -77,7 +74,10 @@ const Profile = () => {
                 <Avatar.Image source={{ uri: image }} size={128} />
               ) : (
                 <Avatar.Text
-                  label={(user?.firstName ?? "").charAt(0) + (user?.lastName ?? "").charAt(0)}
+                  label={
+                    (user?.firstName ?? "").charAt(0) +
+                    (user?.lastName ?? "").charAt(0)
+                  }
                   size={128}
                 />
               )}
@@ -90,7 +90,17 @@ const Profile = () => {
                     type="remove"
                     mode="outlined"
                     className="border-0"
-                    onPress={() => setRemoveImageModal(true)}
+                    onPress={() => {
+                      showYesNoAlert({
+                        title: "Are you sure?",
+                        message: "Do you want to remove profile picture?",
+                        onAcceptPress: () => {
+                          setImage(null);
+                          return null;
+                        },
+                        style: "destructive",
+                      });
+                    }}
                   >
                     Remove profile picture
                   </Button>
@@ -181,13 +191,6 @@ const Profile = () => {
             >
               Save
             </Button>
-            <Button
-              type="remove"
-              mode="outlined"
-              onPress={() => setRemoveAccountModal(true)}
-            >
-              Remove Account
-            </Button>
           </View>
         </View>
         <ScreenModal
@@ -197,29 +200,6 @@ const Profile = () => {
         >
           <ChangePasswordModal />
         </ScreenModal>
-        <AlertModal
-          visible={removeImageModal}
-          onYesCallback={() => {
-            setImage(null);
-            setRemoveImageModal(false);
-          }}
-          onNoCallback={() => setRemoveImageModal(false)}
-          onCloseCallback={() => setRemoveImageModal(false)}
-        >
-          <Text16 className="font-productSansBold text-center">
-            Are you sure you want to remove profile picture?
-          </Text16>
-        </AlertModal>
-        <AlertModal
-          visible={removeAccountModal}
-          onYesCallback={() => setRemoveAccountModal(false)}
-          onNoCallback={() => setRemoveAccountModal(false)}
-          onCloseCallback={() => setRemoveAccountModal(false)}
-        >
-          <Text16 className="font-productSansBold text-center">
-            Are you sure you want to remove your account?
-          </Text16>
-        </AlertModal>
       </ScrollView>
     </KeyboardAvoidingView>
   );
